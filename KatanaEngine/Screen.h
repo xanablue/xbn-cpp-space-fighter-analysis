@@ -120,8 +120,8 @@ namespace KatanaEngine
 		enum class ScreenTransition
 		{
 			None,	/**< @brief The screen is not transitioning. */
-			IN,		/**< @brief The screen is transitioning in. */
-			OUT		/**< @brief The screen is transitioning out. */
+			In,		/**< @brief The screen is transitioning in. */
+			Out		/**< @brief The screen is transitioning out. */
 		};
 
 

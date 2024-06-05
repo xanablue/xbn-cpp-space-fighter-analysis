@@ -44,7 +44,7 @@ namespace KatanaEngine
 		{
 			m_transitionTime -= pGameTime->GetTimeElapsed();
 
-			if (m_transition == ScreenTransition::IN)
+			if (m_transition == ScreenTransition::In)
 			{
 				if (m_transitionInTime > 0)
 				{
@@ -56,7 +56,7 @@ namespace KatanaEngine
 				}
 			}
 
-			if (m_transition == ScreenTransition::OUT)
+			if (m_transition == ScreenTransition::Out)
 			{
 				if (m_transitionOutTime > 0)
 				{
@@ -108,7 +108,7 @@ namespace KatanaEngine
 		if (m_transition == ScreenTransition::None)
 		{
 			m_transitionTime = m_transitionInTime;
-			m_transition = ScreenTransition::IN;
+			m_transition = ScreenTransition::In;
 		}
 	}
 
@@ -117,7 +117,7 @@ namespace KatanaEngine
 		if (m_transition == ScreenTransition::None)
 		{
 			m_transitionTime = m_transitionOutTime;
-			m_transition = ScreenTransition::OUT;
+			m_transition = ScreenTransition::Out;
 		}
 	}
 

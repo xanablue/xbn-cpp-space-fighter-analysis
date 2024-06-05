@@ -30,3 +30,9 @@ If the game won't compile, update the sdk:
 ## Documentation
 
 Full documentation for the project can be found [here](https://docs.shurikenstudios.com/katana-engine/).
+
+## Class Diagram
+
+![Class Diagram](ClassDiagram.png)
+
+> **Note:** The class diagram does not show all classes, only the most important ones, and the ones that are most likely to need modification.
