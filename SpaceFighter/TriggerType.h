@@ -1,6 +1,6 @@
 #pragma once
 
-/** @brief Represents a type of trigger.
+/** @brief Represents a type of trigger, which can be used to activate weapons.
 	@details Each trigger type is represented by a unique bit-mask value.
 	This class helps to decouple the weapon system from the input system.
 */
