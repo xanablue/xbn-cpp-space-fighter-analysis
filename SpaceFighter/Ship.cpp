@@ -11,12 +11,19 @@ Ship::Ship()
 	Initialize();
 }
 
-void Ship::Update(const GameTime *pGameTime)
+void Ship::Update(const GameTime* pGameTime)
 {
-	m_weaponIt = m_weapons.begin();
-	for (; m_weaponIt != m_weapons.end(); m_weaponIt++)
+	//m_weaponIt = m_weapons.begin();
+	//for (; m_weaponIt != m_weapons.end(); m_weaponIt++)
+	//{
+	//	(*m_weaponIt)->Update(pGameTime);
+	//}
+
+	m_attachmentIt = m_attachments.begin();
+	for (; m_attachmentIt != m_attachments.end(); m_attachmentIt++)
 	{
-		(*m_weaponIt)->Update(pGameTime);
+		IAttachment* pAttachment = m_attachmentIt->second;
+		pAttachment->Update(pGameTime);
 	}
 
 	GameObject::Update(pGameTime);
@@ -25,12 +32,31 @@ void Ship::Update(const GameTime *pGameTime)
 void Ship::Hit(const float damage)
 {
 	if (m_isInvulnurable) return;
-	
+
 	m_hitPoints -= damage;
 	if (m_hitPoints > 0) return;
-		
+
 	GameObject::Deactivate();
 	GetCurrentLevel()->SpawnExplosion(this);
+}
+
+IAttachment* Ship::GetAttachment(const std::string& key)
+{
+	m_attachmentIt = m_attachments.find(key);
+	if (m_attachmentIt == m_attachments.end()) return nullptr;
+	return m_attachmentIt->second;
+}
+
+IAttachment* Ship::GetAttachment(const int index)
+{
+	if (index < m_attachments.size())
+	{
+		m_attachmentIt = m_attachments.begin();
+		std::advance(m_attachmentIt, index);
+		return m_attachmentIt->second;
+	}
+
+	return nullptr;
 }
 
 void Ship::Initialize()
@@ -38,18 +64,30 @@ void Ship::Initialize()
 	m_hitPoints = m_maxHitPoints;
 }
 
-void Ship::FireWeapons(TriggerType type)
+void Ship::FireWeapons(TriggerType triggerType)
 {
-	m_weaponIt = m_weapons.begin();
-	for (; m_weaponIt != m_weapons.end(); m_weaponIt++)
+	//m_weaponIt = m_weapons.begin();
+	//for (; m_weaponIt != m_weapons.end(); m_weaponIt++)
+	//{
+	//	(*m_weaponIt)->Fire(type);
+	//}
+
+	m_attachmentIt = m_attachments.begin();
+	for (; m_attachmentIt != m_attachments.end(); m_attachmentIt++)
 	{
-		(*m_weaponIt)->Fire(type);
+		if (m_attachmentIt->second->GetAttachmentType() != "Weapon") continue;
+		((Weapon *)(m_attachmentIt->second))->Fire(triggerType);
 	}
 }
 
-void Ship::AttachWeapon(Weapon *pWeapon, Vector2 position)
+//void Ship::AttachWeapon(Weapon* pWeapon, Vector2 position)
+//{
+//	AttachItem(pWeapon, position);
+//	m_weapons.push_back(pWeapon);
+//}
+
+void Ship::AttachItem(IAttachment* item, Vector2 position)
 {
-	pWeapon->SetGameObject(this);
-	pWeapon->SetOffset(position);
-	m_weapons.push_back(pWeapon);
+	item->AttachTo(this, position);
+	m_attachments[item->GetKey()] = item;
 }

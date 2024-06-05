@@ -11,7 +11,7 @@ void PlayerShip::LoadContent(ResourceManager* pResourceManager)
 
 	AudioSample* pAudio = pResourceManager->Load<AudioSample>("Audio\\Effects\\Laser.wav");
 	pAudio->SetVolume(0.5f);
-	GetWeapon(0)->SetFireSound(pAudio);
+	GetWeapon("Main Blaster")->SetFireSound(pAudio);
 
 	SetPosition(Game::GetScreenCenter() + Vector2::UNIT_Y * 300);
 }

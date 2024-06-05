@@ -5,7 +5,7 @@
 #include "Weapon.h"
 
 /** @brief Represents a ship in the game. */
-class Ship : public GameObject
+class Ship : public GameObject, public IAttachable
 {
 
 public:
@@ -46,7 +46,9 @@ public:
 		@param pWeapon A pointer to the weapon to attach.
 		@param position The position on the ship that the weapon will be attached,
 		offset from the center of the ship. */
-	virtual void AttachWeapon(Weapon *pWeapon, Vector2 position);
+	//virtual void AttachWeapon(Weapon *pWeapon, Vector2 position);
+
+	virtual void AttachItem(IAttachment *item, Vector2 position);
 
 	/** @brief Gets the speed of the ship.
 		@return Returns the speed of the ship. */
@@ -61,6 +63,11 @@ public:
 	virtual void SetMaxHitPoints(const float hitPoints) { m_maxHitPoints = hitPoints; }
 
 
+	virtual IAttachment* GetAttachment(const std::string& key);
+
+	virtual IAttachment* GetAttachment(const int index);
+
+
 protected:
 
 	/** @brief Initializes the ship. */
@@ -73,7 +80,11 @@ protected:
 	/** @brief Gets a weapon from the ship's weapon list.
 		@param index The index of the weapon to get.
 		@return Returns a pointer to the weapon. */
-	virtual Weapon *GetWeapon(const int index) { if (index < m_weapons.size()) return m_weapons[index]; return nullptr; }
+	virtual Weapon* GetWeapon(const std::string &key) //{ if (index < m_weapons.size()) return m_weapons[index]; return nullptr; }
+	{
+		if (m_attachments.find(key) == m_attachments.end()) return nullptr;
+		return dynamic_cast<Weapon *>(m_attachments[key]);
+	}
 
 	/** @brief Gets the current hit points of the ship.
 		@return Returns the current hit points of the ship. */
@@ -93,7 +104,10 @@ private:
 
 	bool m_isInvulnurable = false;
 
-	std::vector<Weapon *> m_weapons;
-	std::vector<Weapon *>::iterator m_weaponIt;
+	//std::vector<Weapon *> m_weapons;
+	//std::vector<Weapon *>::iterator m_weaponIt;
+
+	std::map<std::string, IAttachment *> m_attachments;
+	std::map<std::string, IAttachment *>::iterator m_attachmentIt;
 };
 

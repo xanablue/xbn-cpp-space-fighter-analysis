@@ -46,9 +46,9 @@ Level::Level()
 
 	// Setup player ship
 	m_pPlayerShip = new PlayerShip();
-	Blaster *pBlaster = new Blaster(true);
+	Blaster *pBlaster = new Blaster("Main Blaster");
 	pBlaster->SetProjectilePool(&m_projectiles);
-	m_pPlayerShip->AttachWeapon(pBlaster, Vector2::UNIT_Y * -20);
+	m_pPlayerShip->AttachItem(pBlaster, Vector2::UNIT_Y * -20);
 
 	for (int i = 0; i < 100; i++)
 	{

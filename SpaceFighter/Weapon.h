@@ -8,15 +8,16 @@
 using namespace KatanaEngine;
 
 /** @brief Base class for all weapons that can be fired by a game object. */
-class Weapon
+class Weapon : public IAttachment
 {
 
 public:
 
 	/** @brief Instantiate a weapon object.
 		@param isActive A flag to determine if the weapon is active. */
-	Weapon(bool isAttachedToPlayer = true, bool isActive = true, TriggerType triggerType = TriggerType::Primary)
+	Weapon(const std::string &key, bool isAttachedToPlayer = true, bool isActive = true, TriggerType triggerType = TriggerType::Primary)
 	{
+		m_key = key;
 		m_isAttachedToPlayer = isAttachedToPlayer;
 		m_isActive = isActive;
 		SetTriggerType(triggerType);
@@ -38,13 +39,13 @@ public:
 		*/
 	virtual void Fire(TriggerType triggerType) = 0;
 
-	/** @brief Set the game object that the weapon is attached to.
-		@param pGameObject A pointer to the game object. */
-	virtual void SetGameObject(GameObject *pGameObject) { m_pGameObject = pGameObject; }
+	///** @brief Set the game object that the weapon is attached to.
+	//	@param pGameObject A pointer to the game object. */
+	//virtual void SetGameObject(GameObject *pGameObject) { m_pGameObject = pGameObject; }
 
-	/** @brief Set the offset of the weapon from the game object's position.
-		@param offset The offset of the weapon. */
-	virtual void SetOffset(Vector2 offset) { m_offset = offset; }
+	///** @brief Set the offset of the weapon from the game object's position.
+	//	@param offset The offset of the weapon. */
+	//virtual void SetOffset(Vector2 offset) { m_offset = offset; }
 
 	/** @brief Set the type of trigger that can fire the weapon.
 		@param triggerType The type of trigger.
@@ -78,6 +79,20 @@ public:
 		@return True if the weapon is attached to the player. */
 	virtual bool IsAttachedToPlayer() const { return m_isAttachedToPlayer; }
 
+	/** @brief Attach the weapon to a game object.
+		@param pAttachable A pointer to the attachable game object.
+		@param position The offset position of the weapon relative to the game object. */
+	virtual void AttachTo(IAttachable* pAttachable, Vector2& position) {
+		m_pGameObject = dynamic_cast<GameObject*>(pAttachable);
+		m_offset = position;
+	}
+
+
+	virtual std::string GetKey() const { return m_key; }
+
+	virtual std::string GetAttachmentType() const { return "Weapon"; }
+
+
 protected:
 
 	/** @brief Get the game object that the weapon is attached to.
@@ -108,6 +123,8 @@ private:
 
 	bool m_isActive = true;
 	bool m_isAttachedToPlayer = true;
+
+	std::string m_key;
 
 	GameObject *m_pGameObject = nullptr;
 
