@@ -3,7 +3,7 @@
 
 #include "Ship.h"
 
-/** brief Represents the player's ship. */
+/** @brief Represents the player's ship. */
 class PlayerShip : public Ship
 {
 
