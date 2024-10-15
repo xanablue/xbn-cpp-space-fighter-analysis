@@ -19,11 +19,11 @@ public:
 	virtual std::string GetName() const { return "Space Fighter"; }
 
 	/** @brief Called when resources need to be loaded.
-		@param pResourceManager The game's resource manager, used for loading
-		and managing game resources. */
-	virtual void LoadContent(ResourceManager *pResourceManager);
+		@param resourceManager A reference to the game's resource manager,
+		used for loading and managing game assets (resources). */
+	virtual void LoadContent(ResourceManager& resourceManager);
 
 	/** @brief Called when the game determines it is time to draw a frame.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch *pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 };

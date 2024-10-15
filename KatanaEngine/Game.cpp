@@ -67,19 +67,19 @@ namespace KatanaEngine
 	}
 
 
-	void Game::Update(const GameTime *pGameTime)
+	void Game::Update(const GameTime& gameTime)
 	{
 		ScreenManager *pScreenManager = GetScreenManager();
 		if (!pScreenManager) return;
-		pScreenManager->HandleInput(m_pInput);
-		pScreenManager->Update(m_pGameTime);
+		pScreenManager->HandleInput(*m_pInput);
+		pScreenManager->Update(*m_pGameTime);
 	}
 
-	void Game::Draw(SpriteBatch *pSpriteBatch)
+	void Game::Draw(SpriteBatch& spriteBatch)
 	{
 		ScreenManager* pScreenManager = GetScreenManager();
 		if (!pScreenManager) return;
-		pScreenManager->Draw(pSpriteBatch);
+		pScreenManager->Draw(spriteBatch);
 	}
 
 
@@ -133,7 +133,7 @@ namespace KatanaEngine
 
 		ResetGameTime();
 
-		LoadContent(m_pResourceManager);
+		LoadContent(*m_pResourceManager);
 
 		al_start_timer(pTimer);
 		ALLEGRO_EVENT alEvent;
@@ -165,7 +165,7 @@ namespace KatanaEngine
 
 			case ALLEGRO_EVENT_TIMER:
 				m_pGameTime->Update();
-				Update(m_pGameTime);
+				Update(*m_pGameTime);
 				m_pInput->Update();
 				redraw = true;
 				break;
@@ -177,7 +177,7 @@ namespace KatanaEngine
 
 				al_clear_to_color(al_map_rgb(0, 0, 0));
 
-				Draw(m_pSpriteBatch);
+				Draw(*m_pSpriteBatch);
 
 				m_frameCounter++;
 

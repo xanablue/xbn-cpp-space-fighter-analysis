@@ -16,11 +16,11 @@ public:
 
 	/** @brief Updates the ship.
 		@param pGameTime A pointer to the game time object. */
-	virtual void Update(const GameTime *pGameTime);
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Draws the ship.
-		@param pSpriteBatch A pointer to the game's sprite batch. */
-	virtual void Draw(SpriteBatch *pSpriteBatch) = 0;
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch) = 0;
 
 	/** @brief Applies damage to the ship.
 		@param damage The amount of damage to apply. */

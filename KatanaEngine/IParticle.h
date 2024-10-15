@@ -16,23 +16,20 @@
 
 #include "KatanaEngine.h"
 
-
 namespace KatanaEngine
 {
 
-	/** @brief Interface for a particle emitter. */
-	class IAttachment
+	/** @brief Interface for a particle. */
+	class IParticle
 	{
 
 	public:
 
-		virtual void AttachTo(IAttachable *pAttachable, Vector2 &position) = 0;
+		virtual bool IsActive() const = 0;
 
+		virtual void Initialize(Vector2& position) = 0;
+		
 		virtual void Update(const GameTime& gameTime) = 0;
-
-		virtual std::string GetKey() const = 0;
-
-		virtual std::string GetAttachmentType() const	= 0;
 
 	};
 

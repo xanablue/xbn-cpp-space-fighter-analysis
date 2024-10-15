@@ -11,22 +11,16 @@ Ship::Ship()
 	Initialize();
 }
 
-void Ship::Update(const GameTime* pGameTime)
+void Ship::Update(const GameTime& gameTime)
 {
-	//m_weaponIt = m_weapons.begin();
-	//for (; m_weaponIt != m_weapons.end(); m_weaponIt++)
-	//{
-	//	(*m_weaponIt)->Update(pGameTime);
-	//}
-
 	m_attachmentIt = m_attachments.begin();
 	for (; m_attachmentIt != m_attachments.end(); m_attachmentIt++)
 	{
 		IAttachment* pAttachment = m_attachmentIt->second;
-		pAttachment->Update(pGameTime);
+		pAttachment->Update(gameTime);
 	}
 
-	GameObject::Update(pGameTime);
+	GameObject::Update(gameTime);
 }
 
 void Ship::Hit(const float damage)

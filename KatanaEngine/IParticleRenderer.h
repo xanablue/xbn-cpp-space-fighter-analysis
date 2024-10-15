@@ -16,23 +16,19 @@
 
 #include "KatanaEngine.h"
 
-
 namespace KatanaEngine
 {
 
-	/** @brief Interface for a particle emitter. */
-	class IAttachment
+	/** @brief Interface for a particle renderer. */
+	class IParticleRenderer
 	{
 
 	public:
 
-		virtual void AttachTo(IAttachable *pAttachable, Vector2 &position) = 0;
-
-		virtual void Update(const GameTime& gameTime) = 0;
-
-		virtual std::string GetKey() const = 0;
-
-		virtual std::string GetAttachmentType() const	= 0;
+		/** @brief Draws the particle.
+			@param pParticle A pointer to the particle to draw.
+			@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+		virtual void Draw(IParticle* pParticle, SpriteBatch& spriteBatch) const = 0;
 
 	};
 

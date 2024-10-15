@@ -60,21 +60,21 @@ namespace KatanaEngine
 		virtual SpriteBatch *GetSpriteBatch() const { return m_pSpriteBatch; }
 
 		/** @brief Called when resources need to be loaded.
-			@param pResourceManager The game's resource manager, used for loading
-			and managing game resources. */
-		virtual void LoadContent(ResourceManager *pResourceManager) { }
+			@param resourceManager A reference to the game's resource manager,
+			used for loading and managing game assets (resources). */
+		virtual void LoadContent(ResourceManager& resourceManager) { }
 
 		/** @brief Called when resources need to be unloaded. Override this method to unload
 			any game-specific resources. */
 		virtual void UnloadContent() { }
 
 		/** @brief Called when the game has determined that game logic needs to be processed.
-			@param pGameTime Timing values including time since last update. */
-		virtual void Update(const GameTime *pGameTime);
+			@param gameTime A reference to the game time object. */
+		virtual void Update(const GameTime& gameTime);
 
 		/** @brief Called when the game determines it is time to draw a frame.
-			@param pSpriteBatch The game's sprite batch, used for rendering. */
-		virtual void Draw(SpriteBatch *pSpriteBatch);
+			@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+		virtual void Draw(SpriteBatch& spriteBatch);
 
 		/** @brief Quits the game. */
 		virtual void Quit() { m_isRunning = false; }
@@ -150,6 +150,6 @@ namespace KatanaEngine
 
 		Font *m_pFrameCounterFont = nullptr;
 
-		bool IsRunning() { return m_isRunning; }
+		bool IsRunning() const { return m_isRunning; }
 	};
 }

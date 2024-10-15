@@ -27,8 +27,8 @@ namespace KatanaEngine
 
 
 		/** @brief Updates the animation.
-			@param pGameTime Timing values including time since last update. */
-		virtual void Update(const GameTime *pGameTime);
+			@param gameTime A reference to the game time object. */
+		virtual void Update(const GameTime& gameTime);
 
 		/** @brief Load the desired animation into memory.
 			@param path The path to the desired animation.

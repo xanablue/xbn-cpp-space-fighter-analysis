@@ -2,18 +2,19 @@
 #include "PlayerShip.h"
 #include "Level.h"
 
-void PlayerShip::LoadContent(ResourceManager* pResourceManager)
+void PlayerShip::LoadContent(ResourceManager& resourceManager)
 {
 	ConfineToScreen();
 	SetResponsiveness(0.1);
 
-	m_pTexture = pResourceManager->Load<Texture>("Textures\\PlayerShip.png");
+	m_pTexture = resourceManager.Load<Texture>("Textures\\PlayerShip.png");
 
-	AudioSample* pAudio = pResourceManager->Load<AudioSample>("Audio\\Effects\\Laser.wav");
+	AudioSample* pAudio = resourceManager.Load<AudioSample>("Audio\\Effects\\Laser.wav");
 	pAudio->SetVolume(0.5f);
 	GetWeapon("Main Blaster")->SetFireSound(pAudio);
 
 	SetPosition(Game::GetScreenCenter() + Vector2::UNIT_Y * 300);
+
 }
 
 
@@ -22,15 +23,15 @@ void PlayerShip::Initialize(Level* pLevel, Vector2& startPosition)
 	SetPosition(startPosition);
 }
 
-void PlayerShip::HandleInput(const InputState* pInput)
+void PlayerShip::HandleInput(const InputState& input)
 {
 	if (IsActive())
 	{
 		Vector2 direction = Vector2::ZERO;
-		if (pInput->IsKeyDown(Key::DOWN)) direction.Y++;
-		if (pInput->IsKeyDown(Key::UP)) direction.Y--;
-		if (pInput->IsKeyDown(Key::Right)) direction.X++;
-		if (pInput->IsKeyDown(Key::Left)) direction.X--;
+		if (input.IsKeyDown(Key::DOWN)) direction.Y++;
+		if (input.IsKeyDown(Key::UP)) direction.Y--;
+		if (input.IsKeyDown(Key::Right)) direction.X++;
+		if (input.IsKeyDown(Key::Left)) direction.X--;
 
 		// Normalize the direction
 		if (direction.X != 0 && direction.Y != 0)
@@ -38,38 +39,37 @@ void PlayerShip::HandleInput(const InputState* pInput)
 			direction *= Math::NORMALIZE_PI_OVER4;
 		}
 
-		//TriggerType type = TriggerType::None;
-		//if (pInput->IsKeyDown(Key::F)) type |= TriggerType::Primary;
-		//if (pInput->IsKeyDown(Key::D)) type |= TriggerType::Secondary;
-		//if (pInput->IsKeyDown(Key::S)) type |= TriggerType::Special;
+		TriggerType type = TriggerType::None;
+		if (input.IsKeyDown(Key::SPACE)) type |= TriggerType::Primary;
+		//if (input.IsKeyDown(Key::D)) type |= TriggerType::Secondary;
+		//if (input.IsKeyDown(Key::S)) type |= TriggerType::Special;
 
-		GamePadState* pState = &pInput->GetGamePadState(0);
-		if (pState->IsConnected)
-		{
-			// gamepad overrides keyboard input
-			Vector2 thumbstick = pState->Thumbsticks.Left;
-			if (thumbstick.LengthSquared() < 0.08f) thumbstick = Vector2::ZERO;
-			direction = thumbstick;
+		//// Handle Xbox Controller
+		//GamePadState* pState = input.GetGamePadState(0);
+		//if (pState->IsConnected)
+		//{
+		//	// gamepad overrides keyboard input
+		//	Vector2 thumbstick = pState->Thumbsticks.Left;
+		//	if (thumbstick.LengthSquared() < 0.08f) thumbstick = Vector2::ZERO;
+		//	direction = thumbstick;
 
-			//type = TriggerType::None;
-			//if (pState->Triggers.Right > 0.5f) type |= TriggerType::Primary;
-			//if (pState->Triggers.Left > 0.5f) type |= TriggerType::Secondary;
-			//if (pState->IsButtonDown(Button::Y)) type |= TriggerType::Special;
-		}
+		//	type = TriggerType::None;
+		//	if (pState->Triggers.Right > 0.5f) type |= TriggerType::Primary;
+		//	if (pState->Triggers.Left > 0.5f) type |= TriggerType::Secondary;
+		//	if (pState->IsButtonDown(Button::Y)) type |= TriggerType::Special;
+		//}
 
 
 		SetDesiredDirection(direction);
-		//if (type != TriggerType::None) FireWeapons(type);
-
-		if (pInput->IsKeyDown(Key::SPACE)) FireWeapons(TriggerType::Primary);
+		if (type != TriggerType::None) FireWeapons(type);
 	}
 }
 
 
-void PlayerShip::Update(const GameTime* pGameTime)
+void PlayerShip::Update(const GameTime& gameTime)
 {
 	// Get the velocity for the direction that the player is trying to go.
-	Vector2 targetVelocity = m_desiredDirection * GetSpeed() * pGameTime->GetTimeElapsed();
+	Vector2 targetVelocity = m_desiredDirection * GetSpeed() * gameTime.GetElapsedTime();
 	// We can't go from 0-100 mph instantly! This line interpolates the velocity for us.
 	m_velocity = Vector2::Lerp(m_velocity, targetVelocity, GetResponsiveness());
 	// Move that direction
@@ -108,17 +108,15 @@ void PlayerShip::Update(const GameTime* pGameTime)
 		}
 	}
 
-	// do any updates that a normal ship would do.
-	// (fire weapons, collide with objects, etc.)
-	Ship::Update(pGameTime);
+	Ship::Update(gameTime);
 }
 
-void PlayerShip::Draw(SpriteBatch* pSpriteBatch)
+void PlayerShip::Draw(SpriteBatch& spriteBatch)
 {
 	if (IsActive())
 	{
 		const float alpha = GetCurrentLevel()->GetAlpha();
-		pSpriteBatch->Draw(m_pTexture, GetPosition(), Color::White * alpha, m_pTexture->GetCenter());
+		spriteBatch.Draw(m_pTexture, GetPosition(), Color::White * alpha, m_pTexture->GetCenter());
 	}
 }
 

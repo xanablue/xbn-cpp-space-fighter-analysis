@@ -11,26 +11,26 @@ BioEnemyShip::BioEnemyShip()
 }
 
 
-void BioEnemyShip::Update(const GameTime *pGameTime)
+void BioEnemyShip::Update(const GameTime& gameTime)
 {
 	if (IsActive())
 	{
-		float x = sin(pGameTime->GetTotalTime() * Math::PI + GetIndex());
-		x *= GetSpeed() * pGameTime->GetTimeElapsed() * 1.4f;
-		TranslatePosition(x, GetSpeed() * pGameTime->GetTimeElapsed());
+		float x = sin(gameTime.GetTotalTime() * Math::PI + GetIndex());
+		x *= GetSpeed() * gameTime.GetElapsedTime() * 1.4f;
+		TranslatePosition(x, GetSpeed() * gameTime.GetElapsedTime());
 
 		if (!IsOnScreen()) Deactivate();
 	}
 
-	EnemyShip::Update(pGameTime);
+	EnemyShip::Update(gameTime);
 }
 
 
-void BioEnemyShip::Draw(SpriteBatch *pSpriteBatch)
+void BioEnemyShip::Draw(SpriteBatch& spriteBatch)
 {
 	if (IsActive())
 	{
 		const float alpha = GetCurrentLevel()->GetAlpha();
-		pSpriteBatch->Draw(m_pTexture, GetPosition(), Color::White * alpha, m_pTexture->GetCenter(), Vector2::ONE, Math::PI, 1);
+		spriteBatch.Draw(m_pTexture, GetPosition(), Color::White * alpha, m_pTexture->GetCenter(), Vector2::ONE, Math::PI, 1);
 	}
 }

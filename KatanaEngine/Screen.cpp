@@ -34,15 +34,13 @@ namespace KatanaEngine
 
 		m_onExit = nullptr;
 		m_onRemove = nullptr;
-
-		SetPassthroughFlags();
 	}
 
-	void Screen::UpdateTransition(const GameTime *pGameTime)
+	void Screen::UpdateTransition(const GameTime& gameTime)
 	{
 		if (m_transition != ScreenTransition::None)
 		{
-			m_transitionTime -= pGameTime->GetTimeElapsed();
+			m_transitionTime -= gameTime.GetElapsedTime();
 
 			if (m_transition == ScreenTransition::In)
 			{
@@ -84,9 +82,9 @@ namespace KatanaEngine
 		}
 	}
 
-	void Screen::SetScreenManager(ScreenManager *pScreenManager)
+	void Screen::SetScreenManager(ScreenManager& screenManager)
 	{
-		m_pScreenManager = pScreenManager;
+		m_pScreenManager = &screenManager;
 	}
 
 	void Screen::Show()
@@ -124,13 +122,6 @@ namespace KatanaEngine
 	Game *Screen::GetGame() const
 	{
 		return m_pScreenManager->GetGame();
-	}
-
-	void Screen::SetPassthroughFlags(const bool draw, const bool update, const bool handleInput)
-	{
-		m_drawBelow = draw;
-		m_updateBelow = update;
-		m_handleInputBelow = handleInput;
 	}
 
 	void Screen::UseRenderTarget()

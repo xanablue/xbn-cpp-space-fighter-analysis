@@ -26,7 +26,7 @@ namespace KatanaEngine
 		return GetGame()->GetResourceManager();
 	}
 
-	void ScreenManager::HandleInput(const InputState *pInput)
+	void ScreenManager::HandleInput(const InputState& input)
 	{
 		if (m_screens.size() > 0)
 		{
@@ -38,18 +38,16 @@ namespace KatanaEngine
 
 				if (update)
 				{
-					if (!pScreen->NeedsToBeRemoved())
-					{
-						pScreen->HandleInput(pInput);
-						update = pScreen->HandleInputBelow();
-					}
+					if (pScreen->NeedsToBeRemoved()) continue;
+					pScreen->HandleInput(input);
+					update = pScreen->ShouldHandleInputBelow();
 				}
 				else break;
 			}
 		}
 	}
 
-	void ScreenManager::Update(const GameTime *pGameTime)
+	void ScreenManager::Update(const GameTime& gameTime)
 	{
 		Screen *pScreen;
 
@@ -67,7 +65,7 @@ namespace KatanaEngine
 			{
 				pScreen = *m_rit;
 
-				pScreen->UpdateTransition(pGameTime);
+				pScreen->UpdateTransition(gameTime);
 
 				if (pScreen->NeedsToBeRemoved())
 				{
@@ -75,8 +73,8 @@ namespace KatanaEngine
 				}
 				else if (update)
 				{
-					pScreen->Update(pGameTime);
-					update = pScreen->UpdateBelow();
+					pScreen->Update(gameTime);
+					update = pScreen->ShouldUpdateBelow();
 				}
 			}
 		}
@@ -100,22 +98,17 @@ namespace KatanaEngine
 		}
 	}
 
-	void ScreenManager::Draw(SpriteBatch *pSpriteBatch)
+	void ScreenManager::Draw(SpriteBatch& spriteBatch)
 	{
 		Screen *pScreen;
-
 		if (m_screens.size() > 0)
 		{
 			for (m_rit = m_screens.rbegin(); m_rit != m_screens.rend(); ++m_rit)
 			{
 				pScreen = *m_rit;
-
-				if (!pScreen->NeedsToBeRemoved())
-				{
-					m_screensToDraw.push_back(pScreen);
-
-					if (!pScreen->DrawBelow()) break;
-				}
+				if (pScreen->NeedsToBeRemoved()) continue;
+				m_screensToDraw.push_back(pScreen);
+				if (!pScreen->ShouldDrawBelow()) break;
 			}
 		}
 
@@ -128,14 +121,14 @@ namespace KatanaEngine
 
 				if (pRenderTarget) RenderTarget::Set(pRenderTarget);
 
-				(*m_rit)->Draw(pSpriteBatch);
+				(*m_rit)->Draw(spriteBatch);
 
 				if (pRenderTarget)
 				{
 					RenderTarget::Set(nullptr);
-					pSpriteBatch->Begin(SpriteSortMode::Deferred, BlendState::Alpha);
-					pSpriteBatch->Draw(pRenderTarget, Vector2::ZERO, pScreen->GetRenderTargetColor());
-					pSpriteBatch->End();
+					spriteBatch.Begin();
+					spriteBatch.Draw(pRenderTarget, Vector2::ZERO, pScreen->GetRenderTargetColor());
+					spriteBatch.End();
 				}
 			}
 
@@ -145,8 +138,8 @@ namespace KatanaEngine
 
 	void ScreenManager::AddScreen(Screen *pScreen)
 	{
-		pScreen->SetScreenManager(this);
-		pScreen->LoadContent(GetResourceManager());
+		pScreen->SetScreenManager(*this);
+		pScreen->LoadContent(*GetResourceManager());
 
 		m_screensToAdd.push_back(pScreen);
 	}

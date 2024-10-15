@@ -12,7 +12,7 @@ GameObject::GameObject()
 	s_count++;
 }
 
-void GameObject::Update(const GameTime *pGameTime)
+void GameObject::Update(const GameTime& gameTime)
 {
 	if (!IsActive()) return;
 	if (!s_pCurrentLevel) return;

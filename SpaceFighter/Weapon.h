@@ -26,12 +26,12 @@ public:
 
 	/** @brief Update the weapon.
 		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime *pGameTime) { };
+	virtual void Update(const GameTime& gameTime) { };
 
 	/** @brief Render the weapon.
-		@param pSpriteBatch The game's sprite batch, used for rendering.
+		@param spriteBatch A reference to the game's sprite batch, used for rendering.
 		@remark Generally, this is not used, but can be overridden by derived classes if you want to render the weapon. */
-	virtual void Draw(SpriteBatch *pSpriteBatch) { };
+	virtual void Draw(SpriteBatch& spriteBatch) { };
 
 	/** @brief Attempt to fire the weapon.
 		@param triggerType The type of trigger that fired the weapon.

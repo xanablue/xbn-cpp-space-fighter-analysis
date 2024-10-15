@@ -14,12 +14,13 @@ public:
 	virtual ~EnemyShip() { }
 
 	/** @brief Loads the content for the enemy ship.
-		@param pResourceManager A pointer to the game's resource manager. */
-	virtual void Update(const GameTime *pGameTime);
+		@param resourceManager A reference to the game's resource manager,
+		used for loading and managing game assets (resources). */
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Draws the enemy ship.
-		@param pSpriteBatch A pointer to the game's sprite batch. */
-	virtual void Draw(SpriteBatch *pSpriteBatch) = 0;
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch) = 0;
 
 	/** @brief Initializes the enemy ship.
 		@param position The starting position of the enemy ship.

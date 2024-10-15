@@ -16,23 +16,43 @@
 
 #include "KatanaEngine.h"
 
-
 namespace KatanaEngine
 {
 
-	/** @brief Interface for a particle emitter. */
-	class IAttachment
+	/** @brief Basic particle initializer. */
+	class ParticleInitializer : public IParticleInitializer
 	{
 
 	public:
 
-		virtual void AttachTo(IAttachable *pAttachable, Vector2 &position) = 0;
+		ParticleInitializer(const Color color = Color::White, const float scale = 1)
+		{
+			m_color = color;
+			m_scale = scale;
+		}
 
-		virtual void Update(const GameTime& gameTime) = 0;
+		virtual ~ParticleInitializer() { }
 
-		virtual std::string GetKey() const = 0;
+		virtual void Initialize(IParticle* pParticle, Vector2& position) const
+		{
+			Particle* pP = (Particle*)pParticle;
+			pP->SetLifeSpan(m_lifeSpan);
+			pP->SetVelocity(m_velocity);
+			pP->SetScale(m_scale);
+			pP->SetColor(m_color);
+			pP->Initialize(position);
+		}
 
-		virtual std::string GetAttachmentType() const	= 0;
+		virtual void SetScale(const float scale) { m_scale = scale; }
+
+		virtual void SetColor(const Color color) { m_color = color; }
+
+	private: 
+
+		float m_lifeSpan = 0.5f;
+		Vector2 m_velocity = Vector2::UNIT_Y * 50;
+		float m_scale = 1;
+		Color m_color = Color::White;
 
 	};
 

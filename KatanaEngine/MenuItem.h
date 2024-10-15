@@ -43,12 +43,12 @@ namespace KatanaEngine
 		virtual ~MenuItem() { }
 
 		/** @brief Called when the game has determined that screen logic needs to be processed.
-			@param pGameTime Timing values including time since last update. */
-		virtual void Update(const GameTime *pGameTime) { }
+			@param gameTime A reference to the game time object. */
+		virtual void Update(const GameTime& gameTime) { }
 
 		/** @brief Called when the game determines it is time to draw a frame.
-			@param pSpriteBatch The game's sprite batch, used for rendering. */
-		virtual void Draw(SpriteBatch *pSpriteBatch);
+			@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+		virtual void Draw(SpriteBatch& spriteBatch);
 
 		/** @brief Called when the picks this menu option.
 			@param pMenuScreen A pointer to the menu screen. */

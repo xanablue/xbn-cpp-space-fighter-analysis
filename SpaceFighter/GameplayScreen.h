@@ -23,20 +23,20 @@ public:
 	virtual ~GameplayScreen() { }
 
 	/** @brief Load the content for the screen.
-		@param pResourceManager A pointer to the game's resource manager. */
-	virtual void LoadContent(ResourceManager *pResourceManager);
+		@param resourceManager A reference to the game's resource manager. */
+	virtual void LoadContent(ResourceManager& resourceManager);
 
 	/** @brief Handle input for the screen.
-		@param pInput The current input state. */
-	virtual void HandleInput(const InputState *pInput);
+		@param input The current state of all player input devices. */
+	virtual void HandleInput(const InputState& input);
 
 	/** @brief Update the screen.
-		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime *pGameTime);
+		@param gameTime A reference to the game time object. */
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Render the screen.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch *pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 	/** @brief Load a specific level.
 		@param levelIndex The index of the level to load. */

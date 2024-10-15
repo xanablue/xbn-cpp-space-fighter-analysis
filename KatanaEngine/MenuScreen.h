@@ -28,16 +28,16 @@ namespace KatanaEngine
 		virtual ~MenuScreen();
 
 		/** @brief Called when the game has determined that player input needs to be processed.
-			@param pInput The current state of all player input devices. */
-		virtual void HandleInput(const InputState *pInput);
+			@param input The current state of all player input devices. */
+		virtual void HandleInput(const InputState& input);
 
 		/** @brief Called when the game has determined that screen logic needs to be processed.
-			@param pGameTime Timing values including time since last update. */
-		virtual void Update(const GameTime *pGameTime);
+			@param gameTime A reference to the game time object. */
+		virtual void Update(const GameTime& gameTime);
 
 		/** @brief Called when the game determines it is time to draw a frame.
-			@param pSpriteBatch The game's sprite batch, used for rendering. */
-		virtual void Draw(SpriteBatch *pSpriteBatch);
+			@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+		virtual void Draw(SpriteBatch& spriteBatch);
 
 		/** @brief Sets whether scrolling past the end of the menu returns the selection back
 			to the first item.

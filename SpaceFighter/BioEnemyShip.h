@@ -18,12 +18,12 @@ public:
 	virtual void SetTexture(Texture *pTexture) { m_pTexture = pTexture; }
 
 	/** @brief Updates the enemy ship.
-		@param pGameTime A pointer to the game time object. */
-	virtual void Update(const GameTime *pGameTime);
+		@param gameTime A reference to the game time object. */
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Draws the enemy ship.
-		@param pSpriteBatch A pointer to the game's sprite batch. */
-	virtual void Draw(SpriteBatch *pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 
 private:

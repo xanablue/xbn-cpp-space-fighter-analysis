@@ -15,15 +15,16 @@ public:
 	virtual ~MainMenuScreen() { }
 
 	/** @brief Load the content for the screen.
-		@param pResourceManager A pointer to the game's resource manager. */
-	virtual void LoadContent(ResourceManager *pResourceManager);
+		@param resourceManager A reference to the game's resource manager,
+		used for loading and managing game assets (resources). */
+	virtual void LoadContent(ResourceManager& resourceManager);
 	
 	/** @brief Unload the content for the screen. */
-	virtual void Update(const GameTime *pGameTime);
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Render the screen.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch *pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 	/** @brief Set the flag to quit the game, so the game will exit when screen fades out. */
 	virtual void SetQuittingGame() { m_isQuittingGame = true; }

@@ -55,6 +55,11 @@
 #include "InputState.h"
 
 
+/* Interfaces */
+#include "IAttachable.h"
+#include "IAttachment.h"
+
+
 /* Resource Management */
 #include "Resource.h"
 #include "AudioSample.h"
@@ -67,6 +72,19 @@
 /* Graphics Management */
 #include "RenderTarget.h"
 #include "SpriteBatch.h"
+
+
+/* Particle Management */
+#include "IParticle.h"
+#include "Particle.h"
+#include "IParticleInitializer.h"
+#include "IParticleUpdater.h"
+#include "IParticleRenderer.h"
+#include "ParticleInitializer.h"
+#include "ParticleUpdater.h"
+#include "ParticleRenderer.h"
+#include "ParticlePool.h"
+#include "ParticleEmitter.h"
 
 
 /* Screen Management */

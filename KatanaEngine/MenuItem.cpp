@@ -35,11 +35,11 @@ namespace KatanaEngine
 		m_isDisplayed = true;
 	}
 
-	void MenuItem::Draw(SpriteBatch *pSpriteBatch)
+	void MenuItem::Draw(SpriteBatch& spriteBatch)
 	{
 		if (m_pFont && m_text.compare("") != 0)
 		{
-			pSpriteBatch->DrawString(m_pFont, &m_text, m_position + m_textOffset, m_color * m_alpha, m_textAlign);
+			spriteBatch.DrawString(m_pFont, &m_text, m_position + m_textOffset, m_color * m_alpha, m_textAlign);
 		}
 	}
 

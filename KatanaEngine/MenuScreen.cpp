@@ -35,7 +35,7 @@ namespace KatanaEngine
 	}
 
 
-	void MenuScreen::HandleInput(const InputState *pInput)
+	void MenuScreen::HandleInput(const InputState& input)
 	{
 		if (m_displayCount > 0) m_itemListWraps = false;
 
@@ -46,14 +46,14 @@ namespace KatanaEngine
 			const int FIRST_INDEX = 0;
 			const int LAST_INDEX = (int)(m_menuItems.size() - 1);
 
-			if (pInput->IsNewKeyPress(Key::ENTER) ||
-				pInput->IsNewButtonPress(Button::A, playerIndexOut))
+			if (input.IsNewKeyPress(Key::ENTER) ||
+				input.IsNewButtonPress(Button::A, playerIndexOut))
 			{
 				m_menuItems[m_selectedItemIndex]->Select(this);
 			}
 
-			if (pInput->IsNewKeyPress(Key::UP) ||
-				pInput->IsNewButtonPress(Button::DPAD_UP, playerIndexOut)) // TODO?: Make "IsMenuUp" in InputState ?
+			if (input.IsNewKeyPress(Key::UP) ||
+				input.IsNewButtonPress(Button::DPAD_UP, playerIndexOut)) // TODO?: Make "IsMenuUp" in InputState ?
 			{
 				m_selectedItemIndex--;
 
@@ -62,8 +62,8 @@ namespace KatanaEngine
 					m_selectedItemIndex = (m_itemListWraps) ? LAST_INDEX : FIRST_INDEX;
 				}
 			}
-			else if (pInput->IsNewKeyPress(Key::DOWN) ||
-				pInput->IsNewButtonPress(Button::DPAD_DOWN, playerIndexOut)) // TODO?: Make "IsMenuDown" in InputState ?
+			else if (input.IsNewKeyPress(Key::DOWN) ||
+				input.IsNewButtonPress(Button::DPAD_DOWN, playerIndexOut)) // TODO?: Make "IsMenuDown" in InputState ?
 			{
 				m_selectedItemIndex++;
 
@@ -87,7 +87,7 @@ namespace KatanaEngine
 		}
 	}
 
-	void MenuScreen::Update(const GameTime *pGameTime)
+	void MenuScreen::Update(const GameTime& gameTime)
 	{
 		unsigned int index = 0;
 
@@ -102,25 +102,25 @@ namespace KatanaEngine
 
 			pMenuItem->SetDisplayed(displayed);
 			pMenuItem->SetSelected(index == m_selectedItemIndex);
-			pMenuItem->Update(pGameTime);
+			pMenuItem->Update(gameTime);
 
 			index++;
 		}
 	}
 
-	void MenuScreen::Draw(SpriteBatch *pSpriteBatch)
+	void MenuScreen::Draw(SpriteBatch& spriteBatch)
 	{
-		pSpriteBatch->Begin();
+		spriteBatch.Begin();
 
 		std::vector<MenuItem *>::iterator it;
 		for (it = m_menuItems.begin(); it != m_menuItems.end(); ++it)
 		{
 			MenuItem *pMenuItem = *it;
 
-			if (pMenuItem->IsDisplayed()) pMenuItem->Draw(pSpriteBatch);
+			if (pMenuItem->IsDisplayed()) pMenuItem->Draw(spriteBatch);
 		}
 
-		pSpriteBatch->End();
+		spriteBatch.End();
 	}
 
 

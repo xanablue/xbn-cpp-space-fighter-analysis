@@ -20,20 +20,32 @@
 namespace KatanaEngine
 {
 
-	/** @brief Interface for a particle emitter. */
-	class IAttachment
+	/** @brief Class that manages a pool of particles. */
+	class ParticlePool
 	{
 
 	public:
 
-		virtual void AttachTo(IAttachable *pAttachable, Vector2 &position) = 0;
+		/** @brief Creates a new instance of ParticlePool. */
+		ParticlePool(IParticleUpdater* pUpdater, IParticleRenderer* pRenderer);
+		virtual ~ParticlePool();
 
-		virtual void Update(const GameTime& gameTime) = 0;
+		virtual void Update(const GameTime& gameTime);
 
-		virtual std::string GetKey() const = 0;
+		virtual void Draw(SpriteBatch& spriteBatch);
 
-		virtual std::string GetAttachmentType() const	= 0;
+		virtual IParticle *GetInactiveParticle();
 
+		virtual void AddParticle(IParticle *pParticle) { m_particles.push_back(pParticle); }
+
+	private:
+
+		std::vector<IParticle *> m_particles;
+		std::vector<IParticle *>::iterator m_particlesIt;
+
+		IParticleUpdater* m_pUpdater = nullptr;
+		IParticleRenderer* m_pRenderer = nullptr;
+		
 	};
 
 }

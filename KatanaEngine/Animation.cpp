@@ -37,11 +37,11 @@ namespace KatanaEngine
 	}
 
 
-	void Animation::Update(const GameTime *pGameTime)
+	void Animation::Update(const GameTime& gameTime)
 	{
 		if (m_isPlaying)
 		{
- 			m_currentFrameTime -= pGameTime->GetTimeElapsed();
+ 			m_currentFrameTime -= gameTime.GetElapsedTime();
 
 			if (m_currentFrameTime <= 0)
 			{

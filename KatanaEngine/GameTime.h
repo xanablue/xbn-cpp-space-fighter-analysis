@@ -27,7 +27,7 @@ namespace KatanaEngine
 
 		/** @brief Gets the time in seconds since last frame.
 			@return Returns the number of seconds since the last frame. */
-		double GetTimeElapsed() const { return m_elapsedTime; }
+		double GetElapsedTime() const { return m_elapsedTime; }
 
 		/** @brief Gets the time in seconds since the game started.
 			@return Returns the number of seconds since the game started. */

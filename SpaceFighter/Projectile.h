@@ -20,11 +20,11 @@ public:
 
 	/** @brief Update the projectile.
 		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime *pGameTime);
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Render the projectile.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch *pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 	/** @brief Activate the projectile.
 		@param position The position to activate the projectile at.

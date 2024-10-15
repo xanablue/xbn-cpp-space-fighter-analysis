@@ -13,12 +13,12 @@ public:
 	Explosion() { }
 	virtual ~Explosion() { }
 	/** @brief Update the explosion.
-		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime* pGameTime);
+		@param gameTime A reference to the game time object. */
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Render the explosion.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch* pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 	/** @brief Sets the explosion's animation.
 		@param pAnimation The animation to set. */

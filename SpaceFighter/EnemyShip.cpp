@@ -9,11 +9,11 @@ EnemyShip::EnemyShip()
 }
 
 
-void EnemyShip::Update(const GameTime *pGameTime)
+void EnemyShip::Update(const GameTime& gameTime)
 {
 	if (m_delaySeconds > 0)
 	{
-		m_delaySeconds -= pGameTime->GetTimeElapsed();
+		m_delaySeconds -= gameTime.GetElapsedTime();
 
 		if (m_delaySeconds <= 0)
 		{
@@ -23,11 +23,11 @@ void EnemyShip::Update(const GameTime *pGameTime)
 
 	if (IsActive())
 	{
-		m_activationSeconds += pGameTime->GetTimeElapsed();
+		m_activationSeconds += gameTime.GetElapsedTime();
 		if (m_activationSeconds > 2 && !IsOnScreen()) Deactivate();
 	}
 
-	Ship::Update(pGameTime);
+	Ship::Update(gameTime);
 }
 
 

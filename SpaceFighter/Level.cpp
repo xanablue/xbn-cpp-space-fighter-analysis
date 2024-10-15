@@ -85,15 +85,15 @@ Level::~Level()
 }
 
 
-void Level::LoadContent(ResourceManager *pResourceManager)
+void Level::LoadContent(ResourceManager& resourceManager)
 {
-	m_pPlayerShip->LoadContent(pResourceManager);
+	m_pPlayerShip->LoadContent(resourceManager);
 
 	// Setup explosions if they haven't been already
 	Explosion* pExplosion;
 	if (s_explosions.size() == 0) {
-		AudioSample* pExplosionSound = pResourceManager->Load<AudioSample>("Audio\\Effects\\Explosion.ogg");
-		Animation* pAnimation = pResourceManager->Load<Animation>("Animations\\Explosion.anim");
+		AudioSample* pExplosionSound = resourceManager.Load<AudioSample>("Audio\\Effects\\Explosion.ogg");
+		Animation* pAnimation = resourceManager.Load<Animation>("Animations\\Explosion.anim");
 		pAnimation->Stop();
 
 		for (int i = 0; i < 10; i++)
@@ -107,15 +107,15 @@ void Level::LoadContent(ResourceManager *pResourceManager)
 }
 
 
-void Level::HandleInput(const InputState *pInput)
+void Level::HandleInput(const InputState& input)
 {
 	if (IsScreenTransitioning()) return;
 
-	m_pPlayerShip->HandleInput(pInput);
+	m_pPlayerShip->HandleInput(input);
 }
 
 
-void Level::Update(const GameTime *pGameTime)
+void Level::Update(const GameTime& gameTime)
 {
 	for (unsigned int i = 0; i < m_totalSectorCount; i++)
 	{
@@ -126,7 +126,7 @@ void Level::Update(const GameTime *pGameTime)
 	for (; m_gameObjectIt != m_gameObjects.end(); m_gameObjectIt++)
 	{
 		GameObject *pGameObject = (*m_gameObjectIt);
-		pGameObject->Update(pGameTime);
+		pGameObject->Update(gameTime);
 	}
 
 	for (unsigned int i = 0; i < m_totalSectorCount; i++)
@@ -140,7 +140,7 @@ void Level::Update(const GameTime *pGameTime)
 	m_explosionIt = s_explosions.begin();
 	for (; m_explosionIt != s_explosions.end(); m_explosionIt++)
 	{
-		(*m_explosionIt)->Update(pGameTime);
+		(*m_explosionIt)->Update(gameTime);
 	}
 
 	if (!m_pPlayerShip->IsActive())
@@ -240,31 +240,31 @@ void Level::CheckCollisions(std::vector<GameObject *> &gameObjects)
 	}
 }
 
-void Level::Draw(SpriteBatch *pSpriteBatch)
+void Level::Draw(SpriteBatch& spriteBatch)
 {
-	pSpriteBatch->Begin();
+	spriteBatch.Begin();
 
 	const float alpha = GetGameplayScreen()->GetAlpha();
 
-	if (m_pBackground) pSpriteBatch->Draw(m_pBackground, Vector2::ZERO, Color::White * alpha);
+	if (m_pBackground) spriteBatch.Draw(m_pBackground, Vector2::ZERO, Color::White * alpha);
 
 	m_gameObjectIt = m_gameObjects.begin();
 	for (; m_gameObjectIt != m_gameObjects.end(); m_gameObjectIt++)
 	{
 		GameObject *pGameObject = (*m_gameObjectIt);
-		pGameObject->Draw(pSpriteBatch);
+		pGameObject->Draw(spriteBatch);
 	}
 
-	pSpriteBatch->End();
+	spriteBatch.End();
 
 	// Explosions use additive blending so they need to be drawn after the main sprite batch
-	pSpriteBatch->Begin(SpriteSortMode::Deferred, BlendState::Additive);
+	spriteBatch.Begin(SpriteSortMode::Deferred, BlendState::Additive);
 
 	m_explosionIt = s_explosions.begin();
 	for (; m_explosionIt != s_explosions.end(); m_explosionIt++)
 	{
-		(*m_explosionIt)->Draw(pSpriteBatch);
+		(*m_explosionIt)->Draw(spriteBatch);
 	}
 
-	pSpriteBatch->End();
+	spriteBatch.End();
 }

@@ -21,23 +21,24 @@ public:
 	virtual ~Level();
 
 	/** @brief Load the content for the level, including game objects and resources.
-		@param pResourceManager A pointer to the game's resource manager. */
-	virtual void LoadContent(ResourceManager* pResourceManager);
+		@param resourceManager A reference to the game's resource manager,
+		used for loading and managing game assets (resources). */
+	virtual void LoadContent(ResourceManager& resourceManager);
 
 	/** @brief Unload the content for the level. */
 	virtual void UnloadContent() { };
 
 	/** @brief Handle input for the level.
-		@param pInput The current input state. */
-	virtual void HandleInput(const InputState* pInput);
+		@param input The current state of all player input devices. */
+	virtual void HandleInput(const InputState& input);
 
 	/** @brief Update the level.
 		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime* pGameTime);
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Render the level, and all of the game objects within it.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch* pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 	/** @brief Add a game object to the level.
 		This object will be updated, rendered, and checked for collisions.

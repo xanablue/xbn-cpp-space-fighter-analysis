@@ -26,9 +26,9 @@ GameplayScreen::GameplayScreen(const int levelIndex)
 	Show();
 }
 
-void GameplayScreen::LoadContent(ResourceManager *pResourceManager)
+void GameplayScreen::LoadContent(ResourceManager& resourceManager)
 {
-	m_pResourceManager = pResourceManager;
+	m_pResourceManager = &resourceManager;
 	LoadLevel(m_levelIndex);
 }
 
@@ -42,24 +42,24 @@ void GameplayScreen::LoadLevel(const int levelIndex)
 	}
 
 	m_pLevel->SetGameplayScreen(this);
-	m_pLevel->LoadContent(m_pResourceManager);
+	m_pLevel->LoadContent(*m_pResourceManager);
 }
 
-void GameplayScreen::HandleInput(const InputState *pInput)
+void GameplayScreen::HandleInput(const InputState& input)
 {
-	m_pLevel->HandleInput(pInput);
+	m_pLevel->HandleInput(input);
 }
 
-void GameplayScreen::Update(const GameTime *pGameTime)
+void GameplayScreen::Update(const GameTime& gameTime)
 {
-	m_pLevel->Update(pGameTime);
+	m_pLevel->Update(gameTime);
 }
 
-void GameplayScreen::Draw(SpriteBatch *pSpriteBatch)
+void GameplayScreen::Draw(SpriteBatch& spriteBatch)
 {
-	pSpriteBatch->Begin();
+	spriteBatch.Begin();
 
-	m_pLevel->Draw(pSpriteBatch);
+	m_pLevel->Draw(spriteBatch);
 
-	pSpriteBatch->End();
+	spriteBatch.End();
 }

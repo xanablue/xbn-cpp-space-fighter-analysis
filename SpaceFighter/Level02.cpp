@@ -4,10 +4,10 @@
 #include "BioEnemyShip.h"
 
 
-void Level02::LoadContent(ResourceManager* pResourceManager)
+void Level02::LoadContent(ResourceManager& resourceManager)
 {
 	// Setup enemy ships
-	Texture* pTexture = pResourceManager->Load<Texture>("Textures\\BioEnemyShip.png");
+	Texture* pTexture = resourceManager.Load<Texture>("Textures\\BioEnemyShip.png");
 
 	const int COUNT = 22;
 
@@ -44,6 +44,6 @@ void Level02::LoadContent(ResourceManager* pResourceManager)
 		AddGameObject(pEnemy);
 	}
 
-	Level::LoadContent(pResourceManager);
+	Level::LoadContent(resourceManager);
 }
 

@@ -14,25 +14,26 @@ public:
 	virtual ~PlayerShip() { }
 
 	/** @brief Loads the content for the player ship.
-		@param pResourceManager A pointer to the game's resource manager. */
-	virtual void LoadContent(ResourceManager *pResourceManager);
+		@param resourceManager A reference to the game's resource manager,
+		used for loading and managing game assets (resources). */
+	virtual void LoadContent(ResourceManager& resourceManager);
 
 	/** @brief Updates the player ship.
-		@param pGameTime A pointer to the game time object. */
-	virtual void Update(const GameTime *pGameTime);
+		@param gameTime A reference to the game time object. */
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Draws the player ship.
-		@param pSpriteBatch A pointer to the game's sprite batch. */
-	virtual void Draw(SpriteBatch *pSpriteBatch);
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch);
 
 	/** @brief Handles input for the player ship.
-		@param pInput A pointer to the current input state. */
-	virtual void HandleInput(const InputState *pInput);
+		@param input The current state of all player input devices. */
+	virtual void HandleInput(const InputState& input);
 
 	/** @brief Initializes the player ship.
 		@param pLevel A pointer to the current level.
 		@param startPosition The starting position of the player ship. */
-	virtual void Initialize(Level *pLevel, Vector2 &startPosition);
+	virtual void Initialize(Level* pLevel, Vector2& startPosition);
 
 	/** @brief Gets the half dimensions of the player ship.
 		@return Returns the half dimensions of the player ship. */
@@ -79,6 +80,6 @@ private:
 
 	bool m_isConfinedToScreen = false;
 
-	Texture *m_pTexture = nullptr;
+	Texture* m_pTexture = nullptr;
 
 };

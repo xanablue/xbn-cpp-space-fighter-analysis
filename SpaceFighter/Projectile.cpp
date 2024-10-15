@@ -10,11 +10,11 @@ Projectile::Projectile()
 	SetCollisionRadius(9);
 }
 
-void Projectile::Update(const GameTime *pGameTime)
+void Projectile::Update(const GameTime& gameTime)
 {
 	if (IsActive())
 	{
-		Vector2 translation = m_direction * m_speed * pGameTime->GetTimeElapsed();
+		Vector2 translation = m_direction * m_speed * gameTime.GetElapsedTime();
 		TranslatePosition(translation);
 
 		Vector2 position = GetPosition();
@@ -27,15 +27,15 @@ void Projectile::Update(const GameTime *pGameTime)
 		else if (position.X > Game::GetScreenWidth() + size.X) Deactivate();
 	}
 
-	GameObject::Update(pGameTime);
+	GameObject::Update(gameTime);
 }
 
-void Projectile::Draw(SpriteBatch *pSpriteBatch)
+void Projectile::Draw(SpriteBatch& spriteBatch)
 {
 	if (IsActive())
 	{
 		const float alpha = GetCurrentLevel()->GetAlpha();
-		pSpriteBatch->Draw(s_pTexture, GetPosition(), Color::White * alpha, s_pTexture->GetCenter());
+		spriteBatch.Draw(s_pTexture, GetPosition(), Color::White * alpha, s_pTexture->GetCenter());
 	}
 }
 

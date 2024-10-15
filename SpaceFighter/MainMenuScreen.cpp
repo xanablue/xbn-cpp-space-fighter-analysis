@@ -46,17 +46,17 @@ MainMenuScreen::MainMenuScreen()
 	Show(); // Show the screen
 }
 
-void MainMenuScreen::LoadContent(ResourceManager *pResourceManager)
+void MainMenuScreen::LoadContent(ResourceManager& resourceManager)
 {
 	// Logo
-	m_pTexture = pResourceManager->Load<Texture>("Textures\\Logo.png");
+	m_pTexture = resourceManager.Load<Texture>("Textures\\Logo.png");
 	m_texturePosition = Game::GetScreenCenter() - Vector2::UNIT_Y * 150;
 
 	// Create the menu items
 	const int COUNT = 2;
 	MenuItem *pItem;
 	Font::SetLoadSize(20, true);
-	Font *pFont = pResourceManager->Load<Font>("Fonts\\arial.ttf");
+	Font *pFont = resourceManager.Load<Font>("Fonts\\arial.ttf");
 
 	SetDisplayCount(COUNT);
 
@@ -77,7 +77,7 @@ void MainMenuScreen::LoadContent(ResourceManager *pResourceManager)
 	GetMenuItem(QUIT)->SetSelectCallback(OnQuitSelect);
 }
 
-void MainMenuScreen::Update(const GameTime *pGameTime)
+void MainMenuScreen::Update(const GameTime& gameTime)
 {
 	MenuItem *pItem;
 
@@ -86,19 +86,17 @@ void MainMenuScreen::Update(const GameTime *pGameTime)
 	{
 		pItem = GetMenuItem(i);
 		pItem->SetAlpha(GetAlpha());
-
-		if (pItem->IsSelected()) pItem->SetColor(Color::White);
-		else pItem->SetColor(Color::Blue);
+		pItem->SetColor(pItem->IsSelected() ? Color::White : Color::Blue);
 	}
 
-	MenuScreen::Update(pGameTime);
+	MenuScreen::Update(gameTime);
 }
 
-void MainMenuScreen::Draw(SpriteBatch *pSpriteBatch)
+void MainMenuScreen::Draw(SpriteBatch& spriteBatch)
 {
-	pSpriteBatch->Begin();
-	pSpriteBatch->Draw(m_pTexture, m_texturePosition, Color::White * GetAlpha(), m_pTexture->GetCenter());
-	pSpriteBatch->End();
+	spriteBatch.Begin();
+	spriteBatch.Draw(m_pTexture, m_texturePosition, Color::White * GetAlpha(), m_pTexture->GetCenter());
+	spriteBatch.End();
 
-	MenuScreen::Draw(pSpriteBatch);
+	MenuScreen::Draw(spriteBatch);
 }

@@ -15,10 +15,10 @@ public:
 	virtual ~Blaster() { }
 
 	/** @brief Update the blaster.
-		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime *pGameTime)
+		@param gameTime A reference to the game time object. */
+	virtual void Update(const GameTime& gameTime)
 	{
-		if (m_cooldown > 0) m_cooldown -= pGameTime->GetTimeElapsed();
+		if (m_cooldown > 0) m_cooldown -= gameTime.GetElapsedTime();
 	}
 
 	/** @brief Check if the blaster is ready to fire.

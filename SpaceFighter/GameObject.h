@@ -30,12 +30,12 @@ public:
 	static Level *GetCurrentLevel() { return s_pCurrentLevel; }
 
 	/** @brief Update the object.
-		@param pGameTime Timing values including time since last update. */
-	virtual void Update(const GameTime *pGameTime);
+		@param gameTime A reference to the game time object. */
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Render the object.
-		@param pSpriteBatch The game's sprite batch, used for rendering. */
-	virtual void Draw(SpriteBatch *pSpriteBatch) = 0;
+		@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+	virtual void Draw(SpriteBatch& spriteBatch) = 0;
 
 	/** @brief Flag to determine if the object is active.
 		@return True if the object is active. */

@@ -47,25 +47,25 @@ namespace KatanaEngine
 
 
 		/** @brief Called when resources need to be loaded.
-			@param pResourceManager The game's resource manager, used for loading
-			and managing game resources. */
-		virtual void LoadContent(ResourceManager *pResourceManager) { }
+			@param resourceManager A reference to the game's resource manager,
+			used for loading and managing game assets (resources). */
+		virtual void LoadContent(ResourceManager& resourceManager) { }
 
 		/** @brief Called when resources need to be unloaded. Override this method to unload
 			any screen-specific resources. */
 		virtual void UnloadContent() { }
 
 		/** @brief Called when the game has determined that player input needs to be processed.
-			@param pInput The current state of all player input devices. */
-		virtual void HandleInput(const InputState *pInput) { }
+			@param input The current state of all player input devices. */
+		virtual void HandleInput(const InputState& input) { }
 
 		/** @brief Called when the game has determined that screen logic needs to be processed.
-			@param pGameTime Timing values including time since last update. */
-		virtual void Update(const GameTime *pGameTime) = 0;
+			@param gameTime A reference to the game time object. */
+		virtual void Update(const GameTime& gameTime) = 0;
 
 		/** @brief Called when the game determines it is time to draw a frame.
-			@param pSpriteBatch The game's sprite batch, used for rendering. */
-		virtual void Draw(SpriteBatch *pSpriteBatch) = 0;
+			@param spriteBatch A reference to the game's sprite batch, used for rendering. */
+		virtual void Draw(SpriteBatch& spriteBatch) = 0;
 
 		/** @brief Determines if the screen is currently exiting.
 			@return Returns true if the screen is exiting, false otherwise. */
@@ -88,7 +88,7 @@ namespace KatanaEngine
 
 		/** @brief Gets a pointer to the ScreenManager, for managing game screens.
 			@return A pointer to the game's ScreenManager instance. */
-		virtual void SetScreenManager(ScreenManager *pScreenManager);
+		virtual void SetScreenManager(ScreenManager& screenManager);
 
 		/** @brief Tells the screen to transition in. */
 		virtual void Show();
@@ -124,13 +124,21 @@ namespace KatanaEngine
 			Out		/**< @brief The screen is transitioning out. */
 		};
 
+		/** @brief Checks if the screen manager should call HandleInput on the
+			screen below this one.
+			@return Returns true if HandleInput should be called, false otherwise. */
+		virtual bool ShouldHandleInputBelow() { return false; }
 
-		/** @brief Sets the flags that determine if the underlaying screen should handle input, update,
-			and/or render.
-			@param draw Set this flag to true if the underlaying screen should render.
-			@param update Set this flag to true if the underlaying screen should update.
-			@param handleInput Set this flag to true if the underlaying screen should handle user input. */
-		virtual void SetPassthroughFlags(const bool draw = false, const bool update = false, const bool handleInput = false);
+		/** @brief Checks if the screen manager should call Update on the
+			screen below this one.
+			@return Returns true if Update should be called, false otherwise.
+			@see Update()*/
+		virtual bool ShouldUpdateBelow() { return false; }
+
+		/** @brief Checks if the screen manager should call Draw on the
+			screen below this one.
+			@return Returns true if Draw should be called, false otherwise. */
+		virtual bool ShouldDrawBelow() { return false; }
 
 		/** @brief Set the time in seconds that the screen should transition in.
 			@param seconds The transition time. */
@@ -176,9 +184,6 @@ namespace KatanaEngine
 		void *m_onExit;
 		void *m_onRemove;
 
-		bool m_handleInputBelow = false;
-		bool m_updateBelow = false;
-		bool m_drawBelow = false;
 		bool m_isExiting = false;
 
 		bool m_needsToBeRemoved;
@@ -198,11 +203,6 @@ namespace KatanaEngine
 		void TransitionIn();
 		void TransitionOut();
 
-		void UpdateTransition(const GameTime *pGameTime);
-
-		bool UpdateBelow() const { return m_updateBelow; }
-		bool DrawBelow() const { return m_drawBelow; }
-		bool HandleInputBelow() const { return m_handleInputBelow; }
-
+		void UpdateTransition(const GameTime& gameTime);
 	};
 }

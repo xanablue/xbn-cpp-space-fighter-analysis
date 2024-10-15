@@ -1,17 +1,17 @@
 #include "Explosion.h"
 
-void Explosion::Update(const GameTime* pGameTime)
+void Explosion::Update(const GameTime& gameTime)
 {
-	m_pAnimation->Update(pGameTime);
+	m_pAnimation->Update(gameTime);
 }
 
 
-void Explosion::Draw(SpriteBatch* pSpriteBatch)
+void Explosion::Draw(SpriteBatch& spriteBatch)
 {
 	if (IsActive())
 	{
 		Vector2 center = m_pAnimation->GetFrame(0)->GetCenter();
-		pSpriteBatch->Draw(m_pAnimation, m_position, Color::White, center, Vector2::ONE * m_scale, m_rotation);
+		spriteBatch.Draw(m_pAnimation, m_position, Color::White, center, Vector2::ONE * m_scale, m_rotation);
 	}
 }
 
