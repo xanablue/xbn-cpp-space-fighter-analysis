@@ -33,9 +33,6 @@
       <UniqueIdentifier>{fb788e05-a986-49c1-9d0b-984d681517e3}</UniqueIdentifier>
       <Extensions>cpp;h;</Extensions>
     </Filter>
-    <Filter Include="Source Files\Particles">
-      <UniqueIdentifier>{aed34b3b-9afc-4b61-bea8-3bc75888ccb3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Core\Interfaces">
       <UniqueIdentifier>{61813b7e-1c42-4b63-87bf-6897f365dbf7}</UniqueIdentifier>
     </Filter>
@@ -97,9 +94,6 @@
     </ClCompile>
     <ClCompile Include="AudioSample.cpp">
       <Filter>Source Files\Core\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticlePool.cpp">
-      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,41 +169,11 @@
     <ClInclude Include="AudioSample.h">
       <Filter>Source Files\Core\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="IParticle.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEmitter.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticlePool.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
     <ClInclude Include="IAttachable.h">
       <Filter>Source Files\Core\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IAttachment.h">
       <Filter>Source Files\Core\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="IParticleInitializer.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleUpdater.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleInitializer.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleRenderer.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="IParticleUpdater.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="IParticleRenderer.h">
-      <Filter>Source Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
