@@ -53,7 +53,7 @@ namespace KatanaEngine
 			}
 
 			if (input.IsNewKeyPress(Key::UP) ||
-				input.IsNewButtonPress(Button::DPAD_UP, playerIndexOut)) // TODO?: Make "IsMenuUp" in InputState ?
+				input.IsNewButtonPress(Button::DPAD_UP, playerIndexOut)) // todo: Make "IsMenuUp" in InputState ?
 			{
 				m_selectedItemIndex--;
 
@@ -116,7 +116,6 @@ namespace KatanaEngine
 		for (it = m_menuItems.begin(); it != m_menuItems.end(); ++it)
 		{
 			MenuItem *pMenuItem = *it;
-
 			if (pMenuItem->IsDisplayed()) pMenuItem->Draw(spriteBatch);
 		}
 

@@ -4,16 +4,6 @@
 #include "Level.h"
 #include "Level01.h"
 
-// Callback function
-
-/** @brief Callback function for when the gameplay screen is removed from the screen manager.
-	@param pScreen A pointer to the gameplay screen that is being removed. */
-void OnGameplayScreenRemoved(Screen* pScreen)
-{
-	pScreen->GetScreenManager()->AddScreen(new MainMenuScreen());
-}
-
-
 GameplayScreen::GameplayScreen(const int levelIndex)
 {
 	m_levelIndex = levelIndex;
@@ -21,7 +11,9 @@ GameplayScreen::GameplayScreen(const int levelIndex)
 	SetTransitionInTime(1);
 	SetTransitionOutTime(3);
 
-	SetRemoveCallback(OnGameplayScreenRemoved);
+	//SetRemoveCallback([this](){
+	//	GetScreenManager()->AddScreen(new MainMenuScreen());
+	//});
 
 	Show();
 }

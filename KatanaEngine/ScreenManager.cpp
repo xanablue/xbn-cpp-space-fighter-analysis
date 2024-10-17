@@ -85,7 +85,7 @@ namespace KatanaEngine
 			{
 				pScreen = *m_it;
 
-				if (pScreen->m_onRemove) ((OnRemove)pScreen->m_onRemove)(pScreen);
+				if (pScreen->m_onRemove) ((OnRemove)pScreen->m_onRemove)();
 
 				pScreen->UnloadContent();
 

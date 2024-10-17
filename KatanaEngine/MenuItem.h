@@ -21,7 +21,8 @@ namespace KatanaEngine
 
 	/** @brief Callback function for when a menu item is selected.
 		@see MenuItem */
-	typedef void(*OnSelect)(MenuScreen *pMenuScreen);
+	//typedef void(*OnSelect)(MenuScreen *pMenuScreen);
+	typedef std::function<void()> OnSelect;
 	
 	/** @brief Class for menu items contained in a MenuScreen. */
 	class MenuItem
@@ -137,29 +138,29 @@ namespace KatanaEngine
 
 	private:
 
-		int m_index;
+		int m_index = 0;
 
 		std::string m_text;
 
-		void *m_onSelect;
+		OnSelect m_onSelect;
 
-		bool m_isSelected;
+		bool m_isSelected = false;
 
-		bool m_isDisplayed;
+		bool m_isDisplayed = true;
 
-		Font *m_pFont;
+		Font *m_pFont = nullptr;
 
-		Color m_color;
+		Color m_color = Color::Black;
 
-		float m_alpha;
+		float m_alpha = 1;
 
-		Vector2 m_position;
+		Vector2 m_position = Vector2::ZERO;
 
-		Vector2 m_textOffset;
+		Vector2 m_textOffset = Vector2::ZERO;
 
-		MenuScreen *m_pMenuScreen;
+		MenuScreen *m_pMenuScreen = nullptr;
 
-		TextAlign m_textAlign;
+		TextAlign m_textAlign = TextAlign::Left;
 
 	};
 }

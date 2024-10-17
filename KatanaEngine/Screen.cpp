@@ -98,7 +98,7 @@ namespace KatanaEngine
 
 		TransitionOut();
 
-		if (m_onExit) ((OnExit)m_onExit)(this);
+		if (m_onExit) ((OnExit)m_onExit)();
 	}
 
 	void Screen::TransitionIn()

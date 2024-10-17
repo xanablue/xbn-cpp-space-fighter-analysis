@@ -45,6 +45,6 @@ namespace KatanaEngine
 
 	void MenuItem::Select(MenuScreen *pMenuScreen)
 	{
-		if (m_onSelect) ((OnSelect)m_onSelect)(pMenuScreen);
+		if (m_onSelect) ((OnSelect)m_onSelect)();
 	}
 }

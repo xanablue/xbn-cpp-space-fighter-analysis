@@ -3,47 +3,16 @@
 #include "MainMenuScreen.h"
 #include "GameplayScreen.h"
 
-// Callback Functions
-
-/** @brief Callback function for when the Start Game menu item is selected.
-	@param pScreen A pointer to the menu screen that contains the menu item. */
-void OnStartGameSelect(MenuScreen *pScreen)
-{
-	pScreen->Exit();
-}
-
-/** @brief Callback function for when the Quit menu item is selected.
-	@param pScreen A pointer to the menu screen that contains the menu item. */
-void OnQuitSelect(MenuScreen *pScreen)
-{
-	MainMenuScreen *pMainMenuScreen = (MainMenuScreen *)pScreen;
-	pMainMenuScreen->SetQuittingGame();
-	pScreen->Exit();
-}
-
-/** @brief Callback function for when the main menu screen is removed from the screen manager.
-	@param pScreen A pointer to the menu screen that contains the menu item. */
-void OnMainMenuScreenRemoved(Screen *pScreen)
-{
-	MainMenuScreen *pMainMenuScreen = (MainMenuScreen *)pScreen;
-
-	if (pMainMenuScreen->IsQuittingGame()) {
-		pScreen->GetGame()->Quit();
-		return;
-	}
-
-	pScreen->GetScreenManager()->AddScreen(new GameplayScreen());
-}
-
 
 MainMenuScreen::MainMenuScreen()
 {
-	SetRemoveCallback(OnMainMenuScreenRemoved);
+	// when the screen is removed, quit the game
+	SetRemoveCallback([this](){ GetGame()->Quit(); });
 
 	SetTransitionInTime(1);
 	SetTransitionOutTime(0.5f);
 
-	Show(); // Show the screen
+	Show();
 }
 
 void MainMenuScreen::LoadContent(ResourceManager& resourceManager)
@@ -73,8 +42,18 @@ void MainMenuScreen::LoadContent(ResourceManager& resourceManager)
 		AddMenuItem(pItem);
 	}
 
-	GetMenuItem(START_GAME)->SetSelectCallback(OnStartGameSelect);
-	GetMenuItem(QUIT)->SetSelectCallback(OnQuitSelect);
+	// when "Start Game" is selected, replace the "SetRemoveCallback" delegate
+	// so that it doesn't quit the game (originally set in the constructor)
+	GetMenuItem(START_GAME)->SetSelectCallback([this](){
+		SetRemoveCallback([this](){
+			GetScreenManager()->AddScreen(new GameplayScreen());
+		});
+
+		Exit();
+	});
+
+	// bind the Exit method to the quit menu item
+	GetMenuItem(QUIT)->SetSelectCallback(std::bind(&MainMenuScreen::Exit, this));
 }
 
 void MainMenuScreen::Update(const GameTime& gameTime)

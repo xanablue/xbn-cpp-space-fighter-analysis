@@ -24,7 +24,7 @@ namespace KatanaEngine
 		@remark This callback is run automatically when Exit() is called.
 		@see Screen::Exit()
 		@see OnRemove */
-	typedef void(*OnExit)(Screen *pScreen);
+	typedef std::function<void()> OnExit;
 
 	/** @brief Callback function for when a screen has completely exited
 		and is about to be removed by the screen manager.
@@ -33,7 +33,7 @@ namespace KatanaEngine
 		@see ScreenManager
 		@see Screen::UnloadContent()
 		@see OnExit */
-	typedef void(*OnRemove)(Screen *pScreen);
+	typedef std::function<void()> OnRemove;
 
 	/** @brief Base class for all game screens and menus. */
 	class Screen
@@ -181,8 +181,8 @@ namespace KatanaEngine
 
 	private:
 
-		void *m_onExit;
-		void *m_onRemove;
+		OnExit m_onExit;
+		OnRemove m_onRemove;
 
 		bool m_isExiting = false;
 

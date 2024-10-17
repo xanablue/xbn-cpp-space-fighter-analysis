@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <limits>
 #include <map>
+#include <functional>
 
 
 /* Allegro Specific */
