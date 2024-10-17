@@ -180,7 +180,7 @@ namespace KatanaEngine
 
 		/** @brief Get the color that will be used to tint the render target.
 			@return Returns the render target draw tint. */
-		virtual Color GetRenderTargetColor() const { return Color::White * GetAlpha(); }
+		virtual Color GetRenderTargetColor() const { return Color::WHITE * GetAlpha(); }
 
 
 	private:

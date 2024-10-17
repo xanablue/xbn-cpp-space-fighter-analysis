@@ -16,10 +16,6 @@
 
 namespace KatanaEngine
 {
-	ScreenManager::ScreenManager(Game *pGame)
-	{
-		m_pGame = pGame;
-	}
 
 	ResourceManager *ScreenManager::GetResourceManager() const
 	{

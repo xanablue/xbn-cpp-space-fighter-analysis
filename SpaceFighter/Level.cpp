@@ -239,7 +239,7 @@ void Level::Draw(SpriteBatch& spriteBatch)
 
 	const float alpha = GetGameplayScreen()->GetAlpha();
 
-	if (m_pBackground) spriteBatch.Draw(m_pBackground, Vector2::ZERO, Color::White * alpha);
+	if (m_pBackground) spriteBatch.Draw(m_pBackground, Vector2::ZERO, Color::WHITE * alpha);
 
 	m_gameObjectIt = m_gameObjects.begin();
 	for (; m_gameObjectIt != m_gameObjects.end(); m_gameObjectIt++)

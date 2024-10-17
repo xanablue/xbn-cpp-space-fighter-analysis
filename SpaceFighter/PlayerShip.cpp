@@ -27,7 +27,7 @@ void PlayerShip::HandleInput(const InputState& input)
 {
 	if (IsActive())
 	{
-		Vector2 direction = Vector2::ZERO;
+		Vector2 direction;
 		if (input.IsKeyDown(Key::DOWN)) direction.Y++;
 		if (input.IsKeyDown(Key::UP)) direction.Y--;
 		if (input.IsKeyDown(Key::Right)) direction.X++;
@@ -116,7 +116,7 @@ void PlayerShip::Draw(SpriteBatch& spriteBatch)
 	if (IsActive())
 	{
 		const float alpha = GetCurrentLevel()->GetAlpha();
-		spriteBatch.Draw(m_pTexture, GetPosition(), Color::White * alpha, m_pTexture->GetCenter());
+		spriteBatch.Draw(m_pTexture, GetPosition(), Color::WHITE * alpha, m_pTexture->GetCenter());
 	}
 }
 

@@ -14,7 +14,7 @@ class CollisionType
 public:
 	
 	/** @brief Instantiate a collision type object. */
-	CollisionType() { m_value = 0; }
+	CollisionType() : m_value(0) { }
 	virtual ~CollisionType() { }
 
 	

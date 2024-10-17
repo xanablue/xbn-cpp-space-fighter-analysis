@@ -27,7 +27,7 @@ namespace KatanaEngine
 
 		/** @brief Instantiate a screen manager object.
 			@param pGame A pointer to the game instance. */
-		ScreenManager(Game *pGame);
+		ScreenManager(Game *pGame) : m_pGame(pGame) { }
 		virtual ~ScreenManager() { }
 
 		/** @brief Gets a pointer to the Game.

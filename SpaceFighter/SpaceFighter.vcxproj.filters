@@ -95,6 +95,12 @@
     <ClCompile Include="Explosion.cpp">
       <Filter>Source Files\Game Objects\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Blaster.cpp">
+      <Filter>Source Files\Game Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source Files\Game Objects\Weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenuScreen.h">

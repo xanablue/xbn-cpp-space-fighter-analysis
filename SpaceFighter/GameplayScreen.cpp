@@ -5,9 +5,8 @@
 #include "Level01.h"
 
 GameplayScreen::GameplayScreen(const int levelIndex)
+	: m_levelIndex(levelIndex)
 {
-	m_levelIndex = levelIndex;
-
 	SetTransitionInTime(1);
 	SetTransitionOutTime(3);
 

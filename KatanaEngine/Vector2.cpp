@@ -22,10 +22,7 @@ namespace KatanaEngine
 	const Vector2 Vector2::UNIT_Y = Vector2(0, 1);
 	
 	Vector2::Vector2(const float x, const float y)
-	{
-		X = x;
-		Y = y;
-	}
+		: X(x), Y(y) { }
 
 	float Vector2::LengthSquared() const
 	{
@@ -169,5 +166,22 @@ namespace KatanaEngine
 	const Point Vector2::ToPoint() const
 	{
 		return Point((int)X, (int)Y);
+	}
+
+	Vector2 operator*(const float scalar, const Vector2& vector)
+	{
+		return Vector2(vector.X * scalar, vector.Y * scalar);
+	}
+
+	std::ostream& operator<<(std::ostream& os, const Vector2& vector)
+	{
+		os << "{" << vector.X << ", " << vector.Y << "}";
+		return os;
+	}
+
+	std::istream& operator>>(std::istream& is, Vector2& vector)
+	{
+		is >> vector.X >> vector.Y;
+		return is;
 	}
 }

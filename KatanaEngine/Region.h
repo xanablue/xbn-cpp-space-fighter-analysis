@@ -23,7 +23,7 @@ namespace KatanaEngine
 	public:
 
 		/** @brief Instantiates a new Region object. */
-		Region() { X = Y = Width = Height = 0; }
+		Region() { }
 
 
 		/** @brief Instantiates a new Region object.
@@ -51,9 +51,7 @@ namespace KatanaEngine
 
 			@overload */
 		Region(const int x, const int y, const int width, const int height)
-		{
-			Set(x, y, width, height);
-		}
+			: X(x), Y(y), Width(width), Height(height) { }
 
 		virtual ~Region() { }
 
@@ -74,19 +72,19 @@ namespace KatanaEngine
 
 		/** @brief The top of the region.
 			@return Returns the top. */
-		int GetTop() { return Y; }
+		int GetTop() const { return Y; }
 
 		/** @brief The bottom of the region.
 			@return Returns the bottom. */
-		int GetBottom() { return Y + Height; }
+		int GetBottom() const { return Y + Height; }
 
 		/** @brief The left side of the region.
 			@return Returns the left side. */
-		int GetLeft() { return X; }
+		int GetLeft() const { return X; }
 
 		/** @brief The right side of the region.
 			@return Returns the right side. */
-		int GetRight() { return X + Width; }
+		int GetRight() const { return X + Width; }
 
 
 		/** @brief The top left corner of the region.

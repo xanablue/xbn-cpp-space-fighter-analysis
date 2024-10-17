@@ -99,7 +99,7 @@ namespace KatanaEngine
 
 		Vector2 m_position;
 		Vector2 m_velocity;
-		Color m_color = Color::White;
+		Color m_color = Color::WHITE;
 		float m_scale = 1;
 		
 		float m_lifeSpan = 0;

@@ -14,14 +14,15 @@ class Weapon : public IAttachment
 public:
 
 	/** @brief Instantiate a weapon object.
-		@param isActive A flag to determine if the weapon is active. */
-	Weapon(const std::string &key, bool isAttachedToPlayer = true, bool isActive = true, TriggerType triggerType = TriggerType::Primary)
-	{
-		m_key = key;
-		m_isAttachedToPlayer = isAttachedToPlayer;
-		m_isActive = isActive;
-		SetTriggerType(triggerType);
-	}
+		@param key A string to help lookup attached items.
+		@param isAttachedToPlayer Flag to specify that the attachement belongs to the player.
+		@param isActive A flag to determine if the weapon is active.
+		@param triggerType Used to map buttons/keys for firing the weapon. */
+	Weapon(const std::string& key, bool isAttachedToPlayer = true, bool isActive = true,
+		TriggerType triggerType = TriggerType::Primary)
+		: m_key(key), m_isAttachedToPlayer(isAttachedToPlayer), m_isActive(isActive),
+		m_triggerType(triggerType) { }
+
 	virtual ~Weapon() { }
 
 	/** @brief Update the weapon.
@@ -38,14 +39,6 @@ public:
 		@remark The weapon will only fire if it is active, and may not fire if it is on cooldown.
 		*/
 	virtual void Fire(TriggerType triggerType) = 0;
-
-	///** @brief Set the game object that the weapon is attached to.
-	//	@param pGameObject A pointer to the game object. */
-	//virtual void SetGameObject(GameObject *pGameObject) { m_pGameObject = pGameObject; }
-
-	///** @brief Set the offset of the weapon from the game object's position.
-	//	@param offset The offset of the weapon. */
-	//virtual void SetOffset(Vector2 offset) { m_offset = offset; }
 
 	/** @brief Set the type of trigger that can fire the weapon.
 		@param triggerType The type of trigger.
@@ -82,15 +75,15 @@ public:
 	/** @brief Attach the weapon to a game object.
 		@param pAttachable A pointer to the attachable game object.
 		@param position The offset position of the weapon relative to the game object. */
-	virtual void AttachTo(IAttachable* pAttachable, Vector2& position) {
-		m_pGameObject = dynamic_cast<GameObject*>(pAttachable);
-		m_offset = position;
-	}
+	virtual void AttachTo(IAttachable* pAttachable, Vector2& position);
 
+	/** @brief Gets the key to retreive attachment.
+		@return Gets the key. */
+	virtual const std::string& GetKey() const override { return m_key; }
 
-	virtual std::string GetKey() const { return m_key; }
-
-	virtual std::string GetAttachmentType() const { return "Weapon"; }
+	/** @brief Gets the type of attachment.
+		@return Gets the type. */
+	virtual std::string GetAttachmentType() const override { return "Weapon"; }
 
 
 protected:
@@ -106,15 +99,7 @@ protected:
 	/** @brief Get a projectile from the pool.
 		@return A pointer to a projectile.
 		@remark This helps us avoid instantiating projectiles while the level is running. */
-	virtual Projectile *GetProjectile()
-	{
-		for (Projectile *pProjectile : *m_pProjectiles)
-		{
-			if (!pProjectile->IsActive()) return pProjectile;
-		}
-
-		return nullptr;
-	}
+	virtual Projectile *GetProjectile();
 
 
 private:
@@ -130,7 +115,7 @@ private:
 
 	TriggerType m_triggerType = TriggerType::Primary;
 
-	std::vector<Projectile *> *m_pProjectiles;
+	std::vector<Projectile *> *m_pProjectiles = nullptr;
 
 	AudioSample* m_pFireSound = nullptr;
 

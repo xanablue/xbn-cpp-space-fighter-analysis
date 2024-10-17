@@ -30,9 +30,9 @@ namespace KatanaEngine
 
 		virtual void Update(const GameTime& gameTime) = 0;
 
-		virtual std::string GetKey() const = 0;
+		virtual const std::string& GetKey() const = 0;
 
-		virtual std::string GetAttachmentType() const	= 0;
+		virtual std::string GetAttachmentType() const = 0;
 
 	};
 

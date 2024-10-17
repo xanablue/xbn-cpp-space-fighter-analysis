@@ -22,6 +22,7 @@ namespace KatanaEngine
 
 	public:
 
+		/** @brief Instantiates a new animation. */
 		Animation();
 		virtual ~Animation();
 

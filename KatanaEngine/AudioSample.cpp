@@ -59,13 +59,4 @@ namespace KatanaEngine
 	{
 		m_volume = Math::Clamp(0, 1, volume);
 	}
-
-
-	void AudioSample::SetSample(ALLEGRO_SAMPLE* pSample)
-	{
-		if (pSample)
-		{
-			m_pSample = pSample;
-		}
-	}
 }

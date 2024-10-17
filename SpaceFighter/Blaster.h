@@ -16,10 +16,7 @@ public:
 
 	/** @brief Update the blaster.
 		@param gameTime A reference to the game time object. */
-	virtual void Update(const GameTime& gameTime)
-	{
-		if (m_cooldown > 0) m_cooldown -= gameTime.GetElapsedTime();
-	}
+	virtual void Update(const GameTime& gameTime);
 
 	/** @brief Check if the blaster is ready to fire.
 		@return True if the blaster is ready to fire. */
@@ -39,21 +36,7 @@ public:
 	/** @brief Fire the blaster.
 		@param triggerType The type of trigger that fired the weapon.
 		@remark If the triggerType doesn't match that of the Blaster, the command will be ignored. */
-	virtual void Fire(TriggerType triggerType)
-	{
-		if (!IsActive()) return;
-		if (!CanFire()) return;
-		if (!triggerType.Contains(GetTriggerType())) return;
-
-		Projectile *pProjectile = GetProjectile();
-		if (!pProjectile) return;
-		
-		AudioSample* pAudio = GetFireSound();
-		if (pAudio) pAudio->Play();
-
-		pProjectile->Activate(GetPosition(), IsAttachedToPlayer());
-		m_cooldown = m_cooldownSeconds;
-	}
+	virtual void Fire(TriggerType triggerType);
 
 
 private:

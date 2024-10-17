@@ -149,13 +149,13 @@ namespace KatanaEngine
 
 		Font *m_pFont = nullptr;
 
-		Color m_color = Color::Black;
+		Color m_color = Color::BLACK;
 
 		float m_alpha = 1;
 
-		Vector2 m_position = Vector2::ZERO;
+		Vector2 m_position;
 
-		Vector2 m_textOffset = Vector2::ZERO;
+		Vector2 m_textOffset;
 
 		MenuScreen *m_pMenuScreen = nullptr;
 

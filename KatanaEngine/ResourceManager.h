@@ -22,7 +22,7 @@ namespace KatanaEngine
 
 	public:
 
-		ResourceManager() { m_nextResourceID = 0; }
+		ResourceManager() { }
 
 		/** @brief Sets the location of the folder where game resources are stored.
 			@param path The file path to the content folder. */
@@ -102,7 +102,7 @@ namespace KatanaEngine
 
 		std::string m_contentPath;
 
-		unsigned short m_nextResourceID;
+		unsigned short m_nextResourceID = 0;
 
 	};
 }

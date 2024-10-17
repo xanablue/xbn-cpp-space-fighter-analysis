@@ -20,10 +20,7 @@ namespace KatanaEngine
 
 
 	Point::Point(const int x, const int y)
-	{
-		X = x;
-		Y = y;
-	}
+		: X(x), Y(y) { }
 
 	void Point::Set(const int x, const int y)
 	{

@@ -188,8 +188,8 @@ namespace KatanaEngine
 			DPad.Left = ButtonState::RELEASED;
 			DPad.Right = ButtonState::RELEASED;
 
-			Thumbsticks.Left = Vector2::ZERO;
-			Thumbsticks.Right = Vector2::ZERO;
+			Thumbsticks.Left;
+			Thumbsticks.Right;
 
 			Triggers.Left = 0;
 			Triggers.Right = 0;

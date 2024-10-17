@@ -25,7 +25,7 @@ namespace KatanaEngine
 
 	public:
 
-		ParticleInitializer(const Color color = Color::White, const float scale = 1)
+		ParticleInitializer(const Color color = Color::WHITE, const float scale = 1)
 		{
 			m_color = color;
 			m_scale = scale;
@@ -52,7 +52,7 @@ namespace KatanaEngine
 		float m_lifeSpan = 0.5f;
 		Vector2 m_velocity = Vector2::UNIT_Y * 50;
 		float m_scale = 1;
-		Color m_color = Color::White;
+		Color m_color = Color::WHITE;
 
 	};
 
