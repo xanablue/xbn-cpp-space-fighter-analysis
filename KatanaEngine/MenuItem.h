@@ -33,13 +33,12 @@ namespace KatanaEngine
 
 
 		/** @brief Instantiate a menu item. */
-		MenuItem();
+		MenuItem() { }
 
 		/** @brief Instantiate a menu item.
 			@param text The text that the item will display.
-			
 			@overload */
-		MenuItem(std::string text);
+		MenuItem(const std::string& text) : m_text(text) { }
 
 		virtual ~MenuItem() { }
 
@@ -57,7 +56,7 @@ namespace KatanaEngine
 
 		/** @brief Sets the text of the menu item.
 			@param text The text. */
-		virtual void SetText(const std::string text) { m_text = text; }
+		virtual void SetText(const std::string& text) { m_text = text; }
 
 		/** @brief Sets the offset from the items normal position. Usually used to animate the
 			currently selected menu item.
@@ -110,7 +109,7 @@ namespace KatanaEngine
 
 		/** @brief Sets the callback function for when the menu item is selected.
 			@param callback The callback function. */
-		virtual void SetSelectCallback(OnSelect callback) { m_onSelect = callback; }
+		virtual void SetOnSelect(OnSelect callback) { m_onSelect = callback; }
 
 		/** @brief Gets the index of the menu item.
 			@return Returns the menu item's index. */
@@ -133,14 +132,14 @@ namespace KatanaEngine
 
 		/** @brief Gets the text of the menu item.
 			@return Returns the menu item's text. */
-		virtual std::string GetText() const { return m_text; }
+		virtual const std::string& GetText() const { return m_text; }
 
 
 	private:
 
 		int m_index = 0;
 
-		std::string m_text;
+		std::string m_text = "Menu Item";
 
 		OnSelect m_onSelect;
 

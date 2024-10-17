@@ -87,6 +87,11 @@ namespace KatanaEngine
 		m_pScreenManager = &screenManager;
 	}
 
+	void Screen::AddScreen(Screen* pScreen) const
+	{
+		m_pScreenManager->AddScreen(pScreen);
+	}
+
 	void Screen::Show()
 	{
 		TransitionIn();

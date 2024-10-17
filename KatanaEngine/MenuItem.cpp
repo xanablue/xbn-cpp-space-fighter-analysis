@@ -16,25 +16,6 @@
 
 namespace KatanaEngine
 {
-	MenuItem::MenuItem() : MenuItem("")	{ }
-
-	MenuItem::MenuItem(std::string text)
-	{
-		m_onSelect = nullptr;
-		m_pFont = nullptr;
-
-		m_text = text;
-
-		m_color = Color::White;
-		m_alpha = 1.0f;
-
-		m_position = Vector2::ZERO;
-		m_textOffset = Vector2::ZERO;
-
-		m_textAlign = TextAlign::Left;
-		m_isDisplayed = true;
-	}
-
 	void MenuItem::Draw(SpriteBatch& spriteBatch)
 	{
 		if (m_pFont && m_text.compare("") != 0)

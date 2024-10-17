@@ -27,19 +27,17 @@ namespace KatanaEngine
 
 	MenuScreen::~MenuScreen()
 	{
-		std::vector<MenuItem *>::iterator it;
-		for (it = m_menuItems.begin(); it != m_menuItems.end(); ++it)
-		{
-			delete *it;
-		}
+		for (MenuItem* pMenuItem : m_menuItems) delete pMenuItem;
 	}
 
 
 	void MenuScreen::HandleInput(const InputState& input)
 	{
+		unsigned int previousSelectedIndex = m_selectedItemIndex;
+
 		if (m_displayCount > 0) m_itemListWraps = false;
 
-		if (m_menuItems.size() > 0)
+		if (!m_menuItems.empty())
 		{
 			int8_t playerIndexOut;
 
@@ -53,7 +51,7 @@ namespace KatanaEngine
 			}
 
 			if (input.IsNewKeyPress(Key::UP) ||
-				input.IsNewButtonPress(Button::DPAD_UP, playerIndexOut)) // todo: Make "IsMenuUp" in InputState ?
+				input.IsNewButtonPress(Button::DPAD_UP, playerIndexOut)) // todo: Make "IsMenuUp" in InputState?
 			{
 				m_selectedItemIndex--;
 
@@ -63,7 +61,7 @@ namespace KatanaEngine
 				}
 			}
 			else if (input.IsNewKeyPress(Key::DOWN) ||
-				input.IsNewButtonPress(Button::DPAD_DOWN, playerIndexOut)) // TODO?: Make "IsMenuDown" in InputState ?
+				input.IsNewButtonPress(Button::DPAD_DOWN, playerIndexOut)) // todo: Make "IsMenuDown" in InputState?
 			{
 				m_selectedItemIndex++;
 
@@ -84,6 +82,11 @@ namespace KatanaEngine
 					m_displayStartIndex++;
 				}
 			}
+
+			if (previousSelectedIndex != m_selectedItemIndex && m_onSelectedIndexChanged)
+			{
+				m_onSelectedIndexChanged();
+			}
 		}
 	}
 
@@ -91,14 +94,11 @@ namespace KatanaEngine
 	{
 		unsigned int index = 0;
 
-		std::vector<MenuItem *>::iterator it;
-		for (it = m_menuItems.begin(); it != m_menuItems.end(); ++it)
+		for (MenuItem* pMenuItem : m_menuItems)
 		{
-			MenuItem *pMenuItem = *it;
-
-			bool displayed = (m_displayCount == 0
-				|| (index >= m_displayStartIndex
-					&& index < m_displayStartIndex + m_displayCount));
+			bool displayed =
+				(m_displayCount == 0 || (index >= m_displayStartIndex
+				&& index < m_displayStartIndex + m_displayCount));
 
 			pMenuItem->SetDisplayed(displayed);
 			pMenuItem->SetSelected(index == m_selectedItemIndex);
@@ -110,16 +110,11 @@ namespace KatanaEngine
 
 	void MenuScreen::Draw(SpriteBatch& spriteBatch)
 	{
-		spriteBatch.Begin();
-
-		std::vector<MenuItem *>::iterator it;
-		for (it = m_menuItems.begin(); it != m_menuItems.end(); ++it)
+		for (MenuItem* pMenuItem : m_menuItems)
 		{
-			MenuItem *pMenuItem = *it;
-			if (pMenuItem->IsDisplayed()) pMenuItem->Draw(spriteBatch);
+			if (!pMenuItem->IsDisplayed()) continue;
+			pMenuItem->Draw(spriteBatch);
 		}
-
-		spriteBatch.End();
 	}
 
 

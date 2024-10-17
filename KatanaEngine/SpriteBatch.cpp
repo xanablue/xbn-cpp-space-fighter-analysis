@@ -72,21 +72,19 @@ namespace KatanaEngine
 			//if (test) std::cout << "Sort time: " << (float)(al_get_time() - time) * 1000 << ", ";
 			//time = al_get_time();
 
-			for (std::vector<Drawable *>::iterator it = m_drawables.begin(); it != m_drawables.end(); ++it)
+			for (Drawable* pDrawable : m_drawables)
 			{
-				if ((*it)->isBitmap) DrawBitmap(*it);
-				else DrawFont(*it);
+				if (pDrawable->isBitmap) DrawBitmap(pDrawable);
+				else DrawFont(pDrawable);
 			}
 
 			//if (test) std::cout << "Draw time: " << (float)(al_get_time() - time) * 1000 << ", ";
 			//time = al_get_time();
 		}
 
-		if (m_drawables.size() > 0) m_drawables.clear();
+		if (!m_drawables.empty()) m_drawables.clear();
 
 		//if (test) std::cout << "Clear time: " << (float)(al_get_time() - time) * 1000 << std::endl;
-
-		if (m_sortMode == SpriteSortMode::Texture) al_hold_bitmap_drawing(false);
 
 		ALLEGRO_TRANSFORM identity;
 		al_identity_transform(&identity);

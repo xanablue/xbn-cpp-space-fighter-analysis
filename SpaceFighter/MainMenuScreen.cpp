@@ -1,5 +1,4 @@
 
-#include <string>
 #include "MainMenuScreen.h"
 #include "GameplayScreen.h"
 
@@ -7,7 +6,7 @@
 MainMenuScreen::MainMenuScreen()
 {
 	// when the screen is removed, quit the game
-	SetRemoveCallback([this](){ GetGame()->Quit(); });
+	SetOnRemove([this](){ GetGame()->Quit(); });
 
 	SetTransitionInTime(1);
 	SetTransitionOutTime(0.5f);
@@ -44,28 +43,27 @@ void MainMenuScreen::LoadContent(ResourceManager& resourceManager)
 
 	// when "Start Game" is selected, replace the "SetRemoveCallback" delegate
 	// so that it doesn't quit the game (originally set in the constructor)
-	GetMenuItem(START_GAME)->SetSelectCallback([this](){
-		SetRemoveCallback([this](){
-			GetScreenManager()->AddScreen(new GameplayScreen());
-		});
-
+	GetMenuItem(START_GAME)->SetOnSelect([this](){
+		SetOnRemove([this](){ AddScreen(new GameplayScreen()); });
 		Exit();
 	});
 
 	// bind the Exit method to the quit menu item
-	GetMenuItem(QUIT)->SetSelectCallback(std::bind(&MainMenuScreen::Exit, this));
+	GetMenuItem(QUIT)->SetOnSelect(std::bind(&MainMenuScreen::Exit, this));
 }
 
 void MainMenuScreen::Update(const GameTime& gameTime)
 {
-	MenuItem *pItem;
+	bool isSelected = false;
+	float alpha = GetAlpha();
+	float offset = sinf(gameTime.GetTotalTime() * 10) * 5 + 5;
 
-	// Set the menu item colors
-	for (int i = 0; i < GetDisplayCount(); i++)
+	for (MenuItem* pItem : GetMenuItems())
 	{
-		pItem = GetMenuItem(i);
-		pItem->SetAlpha(GetAlpha());
-		pItem->SetColor(pItem->IsSelected() ? Color::White : Color::Blue);
+		pItem->SetAlpha(alpha);
+		isSelected = pItem->IsSelected();
+		pItem->SetColor(isSelected ? Color::White : Color::Blue);
+		pItem->SetTextOffset(isSelected ? Vector2::UNIT_X * offset : Vector2::ZERO);
 	}
 
 	MenuScreen::Update(gameTime);
@@ -75,7 +73,6 @@ void MainMenuScreen::Draw(SpriteBatch& spriteBatch)
 {
 	spriteBatch.Begin();
 	spriteBatch.Draw(m_pTexture, m_texturePosition, Color::White * GetAlpha(), m_pTexture->GetCenter());
-	spriteBatch.End();
-
 	MenuScreen::Draw(spriteBatch);
+	spriteBatch.End();
 }

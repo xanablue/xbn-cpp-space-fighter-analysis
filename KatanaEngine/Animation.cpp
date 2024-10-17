@@ -28,11 +28,7 @@ namespace KatanaEngine
 
 	Animation::~Animation()
 	{
-		std::vector<Region *>::iterator it;
-		for (it = m_frames.begin(); it != m_frames.end(); ++it)
-		{
-			delete *it;
-		}
+		for (Region* pRegion : m_frames) delete pRegion;
 		m_frames.clear();
 	}
 
@@ -63,49 +59,43 @@ namespace KatanaEngine
 	{
 		std::ifstream fileIn(path.c_str(), std::ifstream::in);
 
-		if (fileIn.is_open() && fileIn.good())
+		if (!fileIn.is_open() || !fileIn.good()) return false;
+		
+		std::string line;
+		std::vector<std::string> splitElements;
+
+		bool loadingSpriteSheet = true;
+		bool loadingFrameTime = true;
+
+		while (getline(fileIn, line))
 		{
-			std::string line;
-			std::vector<std::string> splitElements;
+			ParseComments(line);
+			if (line.empty()) continue;
 
-			bool loadingSpriteSheet = true;
-			bool loadingFrameTime = true;
-
-			while (getline(fileIn, line))
+			if (loadingSpriteSheet)
 			{
-				ParseComments(line);
-				if (line.empty()) continue;
-
-				if (loadingSpriteSheet)
-				{
-					m_pTexture = pManager->Load<Texture>(line);
-					loadingSpriteSheet = false;
-				}
-				else if (loadingFrameTime)
-				{
-					m_secondsPerFrame = atof(line.c_str());
-					loadingFrameTime = false;
-				}
-				else // loading frames
-				{
-					Split(line, ',', splitElements);
-
-					Region *frame = new Region;
-					frame->X = atoi(splitElements[0].c_str());
-					frame->Y = atoi(splitElements[1].c_str());
-					frame->Width = atoi(splitElements[2].c_str());
-					frame->Height = atoi(splitElements[3].c_str());
-					m_frames.push_back(frame);
-				}
+				m_pTexture = pManager->Load<Texture>(line);
+				loadingSpriteSheet = false;
 			}
+			else if (loadingFrameTime)
+			{
+				m_secondsPerFrame = atof(line.c_str());
+				loadingFrameTime = false;
+			}
+			else // loading frames
+			{
+				Split(line, ',', splitElements);
 
-			fileIn.close();
-		}
-		else
-		{
-			return false;
+				Region *frame = new Region;
+				frame->X = atoi(splitElements[0].c_str());
+				frame->Y = atoi(splitElements[1].c_str());
+				frame->Width = atoi(splitElements[2].c_str());
+				frame->Height = atoi(splitElements[3].c_str());
+				m_frames.push_back(frame);
+			}
 		}
 
+		fileIn.close();
 		return true;
 	}
 

@@ -104,10 +104,7 @@ private:
 
 	bool m_isInvulnurable = false;
 
-	//std::vector<Weapon *> m_weapons;
-	//std::vector<Weapon *>::iterator m_weaponIt;
-
 	std::map<std::string, IAttachment *> m_attachments;
-	std::map<std::string, IAttachment *>::iterator m_attachmentIt;
+	std::map<std::string, IAttachment*>::iterator m_attachmentIt;
 };
 

@@ -11,9 +11,7 @@ GameplayScreen::GameplayScreen(const int levelIndex)
 	SetTransitionInTime(1);
 	SetTransitionOutTime(3);
 
-	//SetRemoveCallback([this](){
-	//	GetScreenManager()->AddScreen(new MainMenuScreen());
-	//});
+	SetOnRemove([this](){ AddScreen(new MainMenuScreen()); });
 
 	Show();
 }

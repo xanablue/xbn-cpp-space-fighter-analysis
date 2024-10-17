@@ -131,7 +131,7 @@ protected:
 private:
 
 	static std::vector<Explosion *> s_explosions;
-	std::vector<Explosion *>::iterator m_explosionIt;
+	//std::vector<Explosion *>::iterator m_explosionIt;
 
 	CollisionManager* m_pCollisionManager = nullptr;
 

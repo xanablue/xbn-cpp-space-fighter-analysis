@@ -24,6 +24,8 @@ namespace KatanaEngine
 
 	public:
 
+		typedef std::function<void()> OnSelectedIndexChanged;
+
 		MenuScreen();
 		virtual ~MenuScreen();
 
@@ -43,6 +45,10 @@ namespace KatanaEngine
 			to the first item.
 			@param wraps Pass true if you want the menu items to wrap. */
 		virtual void SetItemListWrapping(const bool wraps) { m_itemListWraps = wraps; }
+		
+		/** @brief Sets the callback function for when the selected menu item changes.
+			@param callback The callback function. */
+		virtual void SetOnSelectedIndexChanged(OnSelectedIndexChanged callback) { m_onSelectedIndexChanged = callback; }
 
 
 	protected:
@@ -79,8 +85,14 @@ namespace KatanaEngine
 			@return Returns index of the first displayed menu item. */
 		virtual int GetDisplayStartIndex() const { return m_displayStartIndex; }
 
+		/** @brief Get the menu items.
+			@return Returns the vector of menu items. */
+		virtual std::vector<MenuItem *>& GetMenuItems() { return m_menuItems; }
+
 
 	private:
+
+		OnSelectedIndexChanged m_onSelectedIndexChanged;
 
 		std::vector<MenuItem *> m_menuItems;
 

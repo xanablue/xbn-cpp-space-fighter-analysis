@@ -108,10 +108,8 @@ protected:
 		@remark This helps us avoid instantiating projectiles while the level is running. */
 	virtual Projectile *GetProjectile()
 	{
-		m_projectileIt = m_pProjectiles->begin();
-		for (; m_projectileIt != m_pProjectiles->end(); m_projectileIt++)
+		for (Projectile *pProjectile : *m_pProjectiles)
 		{
-			Projectile *pProjectile = *m_projectileIt;
 			if (!pProjectile->IsActive()) return pProjectile;
 		}
 
@@ -132,7 +130,6 @@ private:
 
 	TriggerType m_triggerType = TriggerType::Primary;
 
-	std::vector<Projectile *>::iterator m_projectileIt;
 	std::vector<Projectile *> *m_pProjectiles;
 
 	AudioSample* m_pFireSound = nullptr;

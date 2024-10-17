@@ -13,11 +13,9 @@ Ship::Ship()
 
 void Ship::Update(const GameTime& gameTime)
 {
-	m_attachmentIt = m_attachments.begin();
-	for (; m_attachmentIt != m_attachments.end(); m_attachmentIt++)
+	for (const auto& pair : m_attachments)
 	{
-		IAttachment* pAttachment = m_attachmentIt->second;
-		pAttachment->Update(gameTime);
+		pair.second->Update(gameTime);
 	}
 
 	GameObject::Update(gameTime);

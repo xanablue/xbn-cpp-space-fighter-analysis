@@ -59,8 +59,6 @@ namespace KatanaEngine
 		std::vector<Screen *> m_screensToAdd;
 		std::vector<Screen *> m_screensToRemove;
 		std::vector<Screen *> m_screensToDraw;
-
-		std::vector<Screen *>::iterator m_it;
 		std::vector<Screen *>::reverse_iterator m_rit;
 
 		virtual void HandleInput(const InputState& input);

@@ -137,16 +137,9 @@ void Level::Update(const GameTime& gameTime)
 		}
 	}
 	
-	m_explosionIt = s_explosions.begin();
-	for (; m_explosionIt != s_explosions.end(); m_explosionIt++)
-	{
-		(*m_explosionIt)->Update(gameTime);
-	}
+	for (Explosion *pExplosion : s_explosions) pExplosion->Update(gameTime);
 
-	if (!m_pPlayerShip->IsActive())
-	{
-		GetGameplayScreen()->Exit();
-	}
+	if (!m_pPlayerShip->IsActive()) GetGameplayScreen()->Exit();
 }
 
 
@@ -259,12 +252,6 @@ void Level::Draw(SpriteBatch& spriteBatch)
 
 	// Explosions use additive blending so they need to be drawn after the main sprite batch
 	spriteBatch.Begin(SpriteSortMode::Deferred, BlendState::Additive);
-
-	m_explosionIt = s_explosions.begin();
-	for (; m_explosionIt != s_explosions.end(); m_explosionIt++)
-	{
-		(*m_explosionIt)->Draw(spriteBatch);
-	}
-
+	for (Explosion* pExplosion : s_explosions) pExplosion->Draw(spriteBatch);
 	spriteBatch.End();
 }

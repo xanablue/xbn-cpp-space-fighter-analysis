@@ -31,19 +31,10 @@ namespace KatanaEngine
 		/** @brief Unloads all game resources. */
 		void UnloadAllResources()
 		{
-			std::map<std::string, Resource *>::iterator it;
-			for (it = m_resources.begin(); it != m_resources.end(); ++it)
-			{
-				Resource *resource = it->second;
-				delete resource;
-			}
+			for (const auto& pair : m_resources) delete pair.second;
 			m_resources.clear();
 
-			std::vector<Resource *>::iterator cloneIt;
-			for (cloneIt = m_clones.begin(); cloneIt != m_clones.end(); ++cloneIt)
-			{
-				delete *cloneIt;
-			}
+			for (Resource* pClone : m_clones) delete pClone;
 			m_clones.clear();
 		}
 

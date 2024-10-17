@@ -82,6 +82,10 @@ namespace KatanaEngine
 			@return A pointer to the game's ScreenManager instance. */
 		virtual ScreenManager *GetScreenManager() { return m_pScreenManager; }
 
+		/** @brief Add a screen to the screen manager.
+			@param pScreen A pointer to the screen to be added. */
+		virtual void AddScreen(Screen* pScreen) const;
+
 		/** @brief Gets a pointer to the Game.
 			@return A pointer to the game instance. */
 		virtual Game *GetGame() const;
@@ -102,12 +106,12 @@ namespace KatanaEngine
 
 		/** @brief Sets the callback function for when the Exit() is called.
 			@param callback The callback function. */
-		virtual void SetExitCallback(OnExit callback) { m_onExit = callback; }
+		virtual void SetOnExit(OnExit callback) { m_onExit = callback; }
 
 		/** @brief Sets the callback function for when the screen is about to be
 			removed by the screen manager.
 			@param callback The callback function. */
-		virtual void SetRemoveCallback(OnRemove callback) { m_onRemove = callback; }
+		virtual void SetOnRemove(OnRemove callback) { m_onRemove = callback; }
 
 		/** @brief Get the time in seconds that the screen will transition out.
 			@return Returns the transition time in seconds. */

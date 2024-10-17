@@ -28,7 +28,7 @@ namespace KatanaEngine
 
 	void ScreenManager::HandleInput(const InputState& input)
 	{
-		if (m_screens.size() > 0)
+		if (!m_screens.empty())
 		{
 			bool update = true;
 
@@ -36,13 +36,11 @@ namespace KatanaEngine
 			{
 				Screen *pScreen = *m_rit;
 
-				if (update)
-				{
-					if (pScreen->NeedsToBeRemoved()) continue;
-					pScreen->HandleInput(input);
-					update = pScreen->ShouldHandleInputBelow();
-				}
-				else break;
+				if (!update) break;
+				if (pScreen->NeedsToBeRemoved()) continue;
+
+				pScreen->HandleInput(input);
+				update = pScreen->ShouldHandleInputBelow();
 			}
 		}
 	}
@@ -51,13 +49,13 @@ namespace KatanaEngine
 	{
 		Screen *pScreen;
 
-		if (m_screensToAdd.size() > 0)
+		if (!m_screensToAdd.empty())
 		{
 			m_screens.insert(m_screens.end(), m_screensToAdd.begin(), m_screensToAdd.end());
 			m_screensToAdd.clear();
 		}
 
-		if (m_screens.size() > 0)
+		if (!m_screens.empty())
 		{
 			bool update = true;
 
@@ -79,12 +77,10 @@ namespace KatanaEngine
 			}
 		}
 
-		if (m_screensToRemove.size() > 0)
+		if (!m_screensToRemove.empty())
 		{
-			for (m_it = m_screensToRemove.begin(); m_it != m_screensToRemove.end(); ++m_it)
+			for (Screen* pScreen : m_screensToRemove)
 			{
-				pScreen = *m_it;
-
 				if (pScreen->m_onRemove) ((OnRemove)pScreen->m_onRemove)();
 
 				pScreen->UnloadContent();
@@ -101,7 +97,7 @@ namespace KatanaEngine
 	void ScreenManager::Draw(SpriteBatch& spriteBatch)
 	{
 		Screen *pScreen;
-		if (m_screens.size() > 0)
+		if (!m_screens.empty())
 		{
 			for (m_rit = m_screens.rbegin(); m_rit != m_screens.rend(); ++m_rit)
 			{
@@ -112,7 +108,7 @@ namespace KatanaEngine
 			}
 		}
 
-		if (m_screensToDraw.size() > 0)
+		if (!m_screensToDraw.empty())
 		{
 			for (m_rit = m_screensToDraw.rbegin(); m_rit != m_screensToDraw.rend(); ++m_rit)
 			{
