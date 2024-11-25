@@ -15,6 +15,8 @@ void PlayerShip::LoadContent(ResourceManager& resourceManager)
 
 	SetPosition(Game::GetScreenCenter() + Vector2::UNIT_Y * 300);
 
+	// Set Speed
+	SetSpeed(GetSpeed() * 1.25f);
 }
 
 
@@ -64,7 +66,6 @@ void PlayerShip::HandleInput(const InputState& input)
 		if (type != TriggerType::None) FireWeapons(type);
 	}
 }
-
 
 void PlayerShip::Update(const GameTime& gameTime)
 {

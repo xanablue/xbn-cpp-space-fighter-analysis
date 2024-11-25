@@ -15,6 +15,10 @@ void PlayerShootsEnemy(GameObject *pObject1, GameObject *pObject2)
 	EnemyShip *pEnemyShip = (EnemyShip *)((m) ? pObject1 : pObject2);
 	Projectile *pPlayerProjectile = (Projectile *)((!m) ? pObject1 : pObject2);
 	pEnemyShip->Hit(pPlayerProjectile->GetDamage());
+
+	// Print message to console
+	std::cout << "Enemy ship destroyed!\n";
+
 	pPlayerProjectile->Deactivate();
 }
 
@@ -26,6 +30,9 @@ void PlayerCollidesWithEnemy(GameObject *pObject1, GameObject *pObject2)
 	EnemyShip *pEnemyShip = (EnemyShip *)((!m) ? pObject1 : pObject2);
 	pPlayerShip->Hit(std::numeric_limits<float>::max());
 	pEnemyShip->Hit(std::numeric_limits<float>::max());
+
+	// Print another message for fun
+	std::cout << "The player ship has been destroyed... game over. Play again?";
 }
 
 
